@@ -28,7 +28,8 @@ module.exports = {
         type: Sequelize.DATE
       },
       status: {
-        type: Sequelize.ENUM
+        type: Sequelize.ENUM,
+        values: ['ADMIN', 'MEMBER']
       },
       created_at: {
         type: Sequelize.DATE,
