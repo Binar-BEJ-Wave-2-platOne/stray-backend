@@ -7,19 +7,16 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true, // untuk membuat auto id secara pengulangan
         primaryKey: true, //key dari tabel untuk membedakan data 1 dan lainnya
-        unique: true, // key nya untuk membuat validasi uniq, biar key id nya berbeda dan tidak sama
         allowNull: false
       },
-      user_id: {   // penghubung ke create user
+      id_users: {   
         type: Sequelize.INTEGER,
         references: {
-          model: 'user',
+          model: 'users',
           key: 'id'
         },
-        onDelete: 'CASCADE',// mengikuti parent yang dihapus
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
-                  //'RESTRICT', dilarang (misal mengikuti alur penghapusan data)
-                  //'NO ACTION', tidak ada aksi apa2
       },
       kode_verifikasi: {
         type: Sequelize.STRING
