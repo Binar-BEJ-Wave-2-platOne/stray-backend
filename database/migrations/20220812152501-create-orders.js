@@ -41,7 +41,9 @@ module.exports = {
                 onUpdate: 'CASCADE'
             },
             no_invoice: {
+
                 type: sequelize.STRING,
+
             },
             customer_name: {
                 type: sequelize.STRING,
@@ -61,7 +63,13 @@ module.exports = {
                 type: sequelize.FLOAT,
             },
             order_status: {
+<<<<<<< HEAD
                 type: sequelize.INTEGER,
+=======
+
+                type: sequelize.ENUM,
+                values: ['BELUM DI BAYAR', 'SUDAH DI BAYAR']
+>>>>>>> 330cf1470a8b2fb893658f20617ef1f78f307e9d
             },
             created_at: {
                 type: sequelize.DATE,
