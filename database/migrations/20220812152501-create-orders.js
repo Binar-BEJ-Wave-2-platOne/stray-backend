@@ -62,7 +62,6 @@ module.exports = {
             },
             order_status: {
                 type: sequelize.INTEGER,
-                values: ['BELUM DI BAYAR', 'SUDAH DI BAYAR']
             },
             created_at: {
                 type: sequelize.DATE,
