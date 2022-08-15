@@ -21,12 +21,12 @@ module.exports = {
           },
           id_order: {
             type: Sequelize.INTEGER,
-            // references: {
-            //     model: 'orders',
-            //     key: 'id'
-            // },
-            // onDelete: 'CASCADE',
-            // onUpdate: 'CASCADE'
+            references: {
+                model: 'orders',
+                key: 'id'
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
           },
           item_name: {
             type: Sequelize.STRING,
