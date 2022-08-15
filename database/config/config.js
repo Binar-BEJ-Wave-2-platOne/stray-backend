@@ -1,4 +1,6 @@
 module.exports = {
+
+
   development: {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
@@ -21,3 +23,4 @@ module.exports = {
     dialect: 'mysql',
   },
 };
+
