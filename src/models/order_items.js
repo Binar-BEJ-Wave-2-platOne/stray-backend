@@ -31,6 +31,9 @@ OrderItems.init({
     item_name: {
       type: DataTypes.STRING,
     },
+    item_quantity: {
+      type: DataTypes.INTEGER,
+    },
     item_price: {
       type: DataTypes.INTEGER,
     },
