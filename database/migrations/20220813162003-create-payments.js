@@ -4,13 +4,13 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('payments', {
       id: {
-        type: sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primarykey: true,
         allowNull: false,
       },
       id_orders: {
-        type: sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         references: {
           model: 'orders', // nama table
           key: 'id', // nama column
@@ -19,25 +19,25 @@ module.exports = {
         onUpdate: 'CASCADE',
       },
       payment_date: {
-        type: sequelize.DATE,
+        type: Sequelize.DATE,
         default: new Date(),
       },
       payment_type: {
-        type: sequelize.STRING,
+        type: Sequelize.STRING,
       },
       amount: {
-        type: sequelize.INTEGER,
+        type: Sequelize.INTEGER,
       },
       created_at: {
-        type: sequelize.DATE,
+        type: Sequelize.DATE,
         default: new Date(),
       },
       updated_at: {
-        type: sequelize.DATE,
+        type: Sequelize.DATE,
         default: new Date(),
       },
       deleted_at: {
-        type: sequelize.DATE,
+        type: Sequelize.DATE,
       },
     });
   },
