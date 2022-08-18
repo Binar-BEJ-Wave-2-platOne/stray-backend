@@ -6,12 +6,10 @@ const getItems = async (req, res, next) => {
 
     try {
        
-        const resItems = await Items.findAll()
-            
-            
-        
-
-        return resItems.status(200).json({
+     
+       await Items.findAll()
+       
+        return res.status(200).json({
             message: 'success get items'
         })
     } catch (error) {
