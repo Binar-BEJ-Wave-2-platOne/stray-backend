@@ -24,7 +24,7 @@ Verifikasi.init({
     },
     expired_date: {
         type: DataTypes.DATE,
-        default: new DATE(),
+        default: new Date(),
     },
     status: {
         type: DataTypes.ENUM,

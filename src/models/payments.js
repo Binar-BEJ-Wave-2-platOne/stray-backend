@@ -21,7 +21,7 @@ Payments.init({
     },
     payment_date: {
         type: DataTypes.DATE,
-        default: new DATE(),
+        default: new Date(),
     },
     payment_type: {
         type: DataTypes.STRING,

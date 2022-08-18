@@ -2,18 +2,18 @@ const Sequelize = require('sequelize')
 
 const sequelize = require('./sequelize')
 
-class Order extends sequelize.Model {}
+class Order extends Sequelize.Model {}
 
-Order.int({
+Order.init({
         id: {
-            type: sequelize.DataTypes.INTEGER,
+            type: Sequelize.DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             unique: true,
             allowNull: false
         },
         id_users: {
-            type: sequelize.DataTypes.INTEGER,
+            type: Sequelize.DataTypes.INTEGER,
             references: {
                 model: 'users',
                 key: 'id'
@@ -23,7 +23,7 @@ Order.int({
 
         },
         id_order_items: {
-            type: sequelize.DataTypes.INTEGER,
+            type: Sequelize.DataTypes.INTEGER,
             references: {
                 model: 'order_items', // nama table
                 key: 'id' // nama column
@@ -32,7 +32,7 @@ Order.int({
             onUpdate: 'CASCADE'
         },
         id_promo: {
-            type: sequelize.DataTypes.INTEGER,
+            type: Sequelize.DataTypes.INTEGER,
             references: {
                 model: 'promos',
                 key: 'id'
@@ -42,27 +42,27 @@ Order.int({
         },
         no_invoice: {
 
-            type: sequelize.DataTypes.STRING,
+            type: Sequelize.DataTypes.STRING,
 
         },
         customer_name: {
-            type: sequelize.DataTypes.STRING,
+            type: Sequelize.DataTypes.STRING,
         },
         date_order: {
-            type: sequelize.DataTypes.DATE,
-            default: new DATE(),
+            type: Sequelize.DataTypes.DATE,
+            default: new Date(),
         },
         sender_addres: {
-            type: sequelize.DataTypes.TEXT,
+            type: Sequelize.DataTypes.TEXT,
         },
         receiver_addres: {
-            type: sequelize.DataTypes.TEXT,
+            type: Sequelize.DataTypes.TEXT,
         },
         total_price: {
-            type: sequelize.DataTypes.FLOAT,
+            type: Sequelize.DataTypes.FLOAT,
         },
         order_status: {
-            type: sequelize.DataTypes.INTEGER,
+            type: Sequelize.DataTypes.INTEGER,
         },
     }, {
         sequelize: sequelize,

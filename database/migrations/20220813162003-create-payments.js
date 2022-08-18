@@ -20,7 +20,7 @@ module.exports = {
       },
       payment_date: {
         type: sequelize.DATE,
-        default: new DATE(),
+        default: new Date(),
       },
       payment_type: {
         type: sequelize.STRING,
@@ -30,11 +30,11 @@ module.exports = {
       },
       created_at: {
         type: sequelize.DATE,
-        default: new DATE(),
+        default: new Date(),
       },
       updated_at: {
         type: sequelize.DATE,
-        default: new DATE(),
+        default: new Date(),
       },
       deleted_at: {
         type: sequelize.DATE,
