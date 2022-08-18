@@ -2,9 +2,9 @@ const Sequelize = require('sequelize')
 
 const sequelize = require('./sequelize')
 
-class order extends sequelize.Model {}
+class Order extends sequelize.Model {}
 
-order.int({
+Order.int({
         id: {
             type: sequelize.DataTypes.INTEGER,
             autoIncrement: true,
@@ -74,4 +74,4 @@ order.int({
     }
 
 )
-module.exports = orders
+module.exports = Order

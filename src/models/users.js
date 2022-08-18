@@ -21,16 +21,6 @@ Users.init(
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     },
-    id_verifikasi: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'verifikasi',
-        key: 'id',
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
