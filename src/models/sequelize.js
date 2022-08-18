@@ -1,6 +1,6 @@
 const { config } = require('dotenv')
 const Sequelize = require('sequelize')
-const configs = require('../../config/config.js')
+const configs = require('../../database/config/config')
 
 
 const sequelize = new Sequelize(configs.database, configs.username, configs.password, { // database , username , password

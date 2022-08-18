@@ -51,7 +51,7 @@ module.exports = {
 
             date_order: {
                 type: sequelize.DATE,
-                default: new DATE(),
+                default: new Date(),
             },
             sender_addres: {
                 type: sequelize.TEXT,
@@ -68,11 +68,11 @@ module.exports = {
             },
             created_at: {
                 type: sequelize.DATE,
-                default: new DATE(),
+                default: new Date(),
             },
             updated_at: {
                 type: sequelize.DATE,
-                default: new DATE(),
+                default: new Date(),
             },
             deleted_at: {
                 type: sequelize.DATE,
