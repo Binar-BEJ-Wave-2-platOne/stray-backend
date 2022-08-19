@@ -6,12 +6,16 @@ const getItems = async (req, res, next) => {
 
     try {
        
-     
-       await Items.findAll()
-       
-        return res.status(200).json({
-            message: 'success get items'
-        })
+        const resItems=  await Items.findAll()
+        if(resItems !== 0){
+            return res.status(200).json({
+                message: 'success get items',
+                data: resItems
+            })
+        }else {
+            next(req)
+        }
+
     } catch (error) {
         next(error)
     }
@@ -19,7 +23,15 @@ const getItems = async (req, res, next) => {
 
 
 const postItems = async (req, res, next) => {
-    console.log( "postITEMS", req)    
+    console.log( "postITEMS", req)  
+    const {
+        item_name,
+        item_category,
+        item_quantity,
+        item_price,
+        item_image,
+        item_status
+        } = req.body  
 
     try {
        
@@ -46,9 +58,83 @@ const postItems = async (req, res, next) => {
     }
 }
 
+const getItemsId = async (req, res, next) => {
+    console.log( "getITEMS",  req.params)  
+    const {id} = req.params
 
+    try {
+       
+        const resItems=  await Items.findOne(
+            { where: { id: id } }
+        )
+        if(resItems !== 0){
+            return res.status(200).json({
+                message: `success get items by id ${id}`,
+                data: [resItems]
+            })
+        }else {
+            next(req)
+        }
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+const updateItems = async (req, res, next) => {
+    console.log( "getITEMS",  req.params)  
+    const {id} = req.params
+
+    try {        
+        const itemUpdate =  await Items.update(
+            req.body,
+            {
+                where: { id : id },
+            });
+
+
+        if(itemUpdate !== 0){
+            return res.status(200).json({
+                message: `success update items by id ${id}`,
+            })
+        }else {
+            next(req)
+        }
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+const deleteItems = async (req, res, next) => {
+    console.log( "getITEMS",  req.params)  
+    const {id} = req.params
+
+    try {        
+        const itemDelete = await Items.destroy({
+            where: {
+              id: id
+            }
+          });
+
+
+        if(itemDelete !== 0){
+            return res.status(200).json({
+                message: `success delete items by id ${id}`,
+            })
+        }else {
+            next(req)
+        }
+
+    } catch (error) {
+        next(error)
+    }
+}
 
 module.exports = {
     postItems,
-    getItems
+    getItems,
+    getItemsId,
+    updateItems,
+    deleteItems,
 }
