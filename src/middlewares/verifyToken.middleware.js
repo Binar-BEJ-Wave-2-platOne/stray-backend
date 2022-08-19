@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const isTokenValid = (req, res, next) => {
+const isTokenValid = (role) => (req, res, next) => {
   try {
     let token = req.get('Authorization');
     if (!token) {
@@ -11,6 +11,13 @@ const isTokenValid = (req, res, next) => {
 
     token = token.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (decoded.role !== role) {
+      throw {
+        code: 403, // forbidden
+        message: 'not authorized',
+      };
+    }
+
     req.email = decoded.email;
     req.id_users = decoded.id_users;
   } catch (error) {
@@ -24,6 +31,7 @@ const refreshToken = (email, token) => {
     return {
       email: decoded.email,
       id_users: decoded.id_users,
+      role: decoded.role,
     };
   } catch (error) {
     return false;
