@@ -2,9 +2,9 @@ const Sequelize = require('sequelize')
 
 const sequelize = require('./sequelize')
 
-class Order extends Sequelize.Model {}
+class Orders extends Sequelize.Model {}
 
-Order.init({
+Orders.init({
         id: {
             type: Sequelize.DataTypes.INTEGER,
             autoIncrement: true,
@@ -22,15 +22,7 @@ Order.init({
             onUpdate: 'CASCADE'
 
         },
-        id_order_items: {
-            type: Sequelize.DataTypes.INTEGER,
-            references: {
-                model: 'order_items', // nama table
-                key: 'id' // nama column
-            },
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
-        },
+
         id_promo: {
             type: Sequelize.DataTypes.INTEGER,
             references: {
@@ -62,7 +54,8 @@ Order.init({
             type: Sequelize.DataTypes.FLOAT,
         },
         order_status: {
-            type: Sequelize.DataTypes.INTEGER,
+            type: Sequelize.DataTypes.ENUM,
+            values: ['BELUM DI BAYAR', 'SUDAH DI BAYAR']
         },
     }, {
         sequelize: sequelize,
@@ -74,4 +67,4 @@ Order.init({
     }
 
 )
-module.exports = Order
+module.exports = Orders
