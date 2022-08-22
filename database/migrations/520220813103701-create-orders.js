@@ -19,15 +19,7 @@ module.exports = {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE'
             },
-            id_order_items: {
-                type: Sequelize.INTEGER,
-                references: {
-                    model: 'order_items', // nama table
-                    key: 'id' // nama column
-                },
-                onDelete: 'CASCADE',
-                onUpdate: 'CASCADE'
-            },
+
             id_promo: {
                 type: Sequelize.INTEGER,
                 references: {
