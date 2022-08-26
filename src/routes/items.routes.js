@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
-const {getItems, postItems} = require('../controllers/items.controllers');
+const { getItems, postItems } = require('../controllers/items.controllers');
 
-router.get('/', getItems);
-router.post('/items', postItems);
+router.get('/items', getItems);
+router.post('/additems', postItems);
 
 module.exports = router;
