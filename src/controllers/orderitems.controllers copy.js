@@ -1,15 +1,15 @@
-const {sequelize, Items} = require('../models')
+const {sequelize, OrderItems} = require('../models')
 
 
-const getItems = async (req, res, next) => {
-    console.log( "getITEMS", req)    
+const getOrderItems = async (req, res, next) => {
+    console.log( "getORDERITEMS", req)    
 
     try {
        
-        const resItems=  await Items.findAll()
+        const resItems=  await OrderItems.findAll()
         if(resItems !== 0){
             return res.status(200).json({
-                message: 'success get items',
+                message: 'success get Order Items',
                 data: resItems
             })
         }else {
@@ -22,54 +22,51 @@ const getItems = async (req, res, next) => {
 }
 
 
-const postItems = async (req, res, next) => {
-    console.log( "postITEMS", req)  
+const postOrderItems = async (req, res, next) => {
+    console.log( "postORDERITEMS", req)  
     const {
+        id_items,
+        id_order,
         item_name,
-        item_category,
         item_quantity,
-        item_price,
-        item_image,
-        item_status
+        item_price
         } = req.body  
 
     try {
        
-
         await sequelize.transaction(async trx => {
 
-            await Items.create({
-               item_name,
-               item_category,
-               item_quantity,
-               item_price,
-               item_image,
-               item_status
+            await OrderItems.create({
+                id_items,
+                id_order,
+                item_name,
+                item_quantity,
+                item_price
             }, {
                 transaction: trx
             })
         })
 
         return res.status(201).json({
-            message: 'success create items'
+            message: 'success create order items'
         })
     } catch (error) {
         next(error)
     }
 }
 
-const getItemsId = async (req, res, next) => {
-    console.log( "getITEMS",  req.params)  
+const getOrderItemsId = async (req, res, next) => {
+    console.log( "getOrderITEMSbyId",  req.params)  
     const {id} = req.params
 
     try {
        
-        const resItems=  await Items.findOne(
+        const resOrderItems=  await OrderItems.findOne(
             { where: { id: id } }
         )
-        if(resItems !== 0){
+        if(resOrderItems !== 0){
             return res.status(200).json({
-                message: `success get items by id ${id}`,
+                message: `success get order item by id ${id}`,
                 data: [resItems]
             })
         }else {
@@ -81,21 +78,21 @@ const getItemsId = async (req, res, next) => {
     }
 }
 
-const updateItems = async (req, res, next) => {
-    console.log( "getITEMS",  req.params)  
+const updateOrderItems = async (req, res, next) => {
+    console.log( "getOrderITEMS",  req.params)  
     const {id} = req.params
 
     try {        
-        const itemUpdate =  await Items.update(
+        const OrderItemUpdate =  await OrderItems.update(
             req.body,
             {
                 where: { id : id },
             });
 
 
-        if(itemUpdate !== 0){
+        if(OrderItemUpdate !== 0){
             return res.status(200).json({
-                message: `success update items by id ${id}`,
+                message: `success update Order Item by id ${id}`,
             })
         }else {
             next(req)
@@ -106,21 +103,21 @@ const updateItems = async (req, res, next) => {
     }
 }
 
-const deleteItems = async (req, res, next) => {
+const deleteOrderItems = async (req, res, next) => {
     console.log( "getITEMS",  req.params)  
     const {id} = req.params
 
     try {        
-        const itemDelete = await Items.destroy({
+        const OrderItemDelete = await OrderItems.destroy({
             where: {
               id: id
             }
           });
 
 
-        if(itemDelete !== 0){
+        if(OrderItemDelete !== 0){
             return res.status(200).json({
-                message: `success delete items by id ${id}`,
+                message: `success delete order items by id ${id}`,
             })
         }else {
             next(req)
@@ -132,9 +129,9 @@ const deleteItems = async (req, res, next) => {
 }
 
 module.exports = {
-    postItems,
-    getItems,
-    getItemsId,
-    updateItems,
-    deleteItems,
+    postOrderItems,
+    getOrderItems,
+    getOrderItemsId,
+    updateOrderItems,
+    deleteOrderItems,
 }
