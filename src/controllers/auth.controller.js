@@ -210,9 +210,6 @@ const confirm = async (req, res, next) => {
     });
   }
 
-  console.log(verifyCode?.expired_date);
-  console.log(expiredToken);
-
   if (verifyCode?.expired_date < expiredToken) {
     return res.status(400).json({
       message:
