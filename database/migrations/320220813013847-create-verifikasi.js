@@ -1,49 +1,49 @@
 'use strict';
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.createTable( 'verifikasi',{ 
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('verifikasi', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true, // untuk membuat auto id secara pengulangan
         primaryKey: true, //key dari tabel untuk membedakan data 1 dan lainnya
-        allowNull: false
+        allowNull: false,
       },
-      id_users: {   
+      id_users: {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
-          key: 'id'
+          key: 'id',
         },
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        onUpdate: 'CASCADE',
       },
       kode_verifikasi: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       expired_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       status: {
         type: Sequelize.ENUM,
-        values: ['ADMIN', 'MEMBER']
+        values: ['Pending', 'Active'],
+        defaultValues: 'Pending',
       },
       created_at: {
         type: Sequelize.DATE,
-        default: new Date()
+        default: new Date(),
       },
       updated_at: {
         type: Sequelize.DATE,
-        default: new Date()
+        default: new Date(),
       },
       deleted_at: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
-    },
-  );
-},
+    });
+  },
 
-async down (queryInterface, Sequelize) {
-  await queryInterface.dropTable('verifikasi');
-}
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('verifikasi');
+  },
 };
