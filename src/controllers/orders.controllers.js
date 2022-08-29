@@ -50,5 +50,4 @@ const CreateOrder = async(req, res, next) => {
     }
 }
 
-
 module.exports = { CreateOrder }

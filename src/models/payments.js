@@ -1,8 +1,5 @@
 const { Model, DataTypes } = require("sequelize")
 const connection = require("./sequelize")
-
-const Sequelize = require('sequelize')
-
 const sequelize = require('./sequelize')
 
 class Payments extends Model {}
@@ -36,12 +33,7 @@ Payments.init({
     payment_status: {
         type: Sequelize.DataTypes.ENUM,
         values: ['PAID', 'UNPAID']
-
     },
-    
-    
-    
-
 },{
     sequelize: connection, 
     timestamps: true, 
