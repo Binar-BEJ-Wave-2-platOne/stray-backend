@@ -19,16 +19,6 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      id_verifikasi: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'verifikasi',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,

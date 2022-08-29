@@ -1,20 +1,17 @@
 'use strict';
 
-const { DATE } = require("sequelize");
-const sequelize = require("sequelize");
-
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable("orders", {
             id: {
-                type: sequelize.INTEGER,
+                type: Sequelize.INTEGER,
                 autoIncrement: true,
                 primarykey: true,
                 unique: true,
                 allowNull: false,
             },
             id_users: {
-                type: sequelize.INTEGER,
+                type: Sequelize.INTEGER,
                 references: {
                     model: 'users', // nama table
                     key: 'id' // nama column
@@ -22,17 +19,9 @@ module.exports = {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE'
             },
-            id_order_items: {
-                type: sequelize.INTEGER,
-                references: {
-                    model: 'order_items', // nama table
-                    key: 'id' // nama column
-                },
-                onDelete: 'CASCADE',
-                onUpdate: 'CASCADE'
-            },
+
             id_promo: {
-                type: sequelize.INTEGER,
+                type: Sequelize.INTEGER,
                 references: {
                     model: 'promos',
                     key: 'id'
@@ -41,39 +30,42 @@ module.exports = {
                 onUpdate: 'CASCADE'
             },
             no_invoice: {
-                type: sequelize.INTEGER,
+
+                type: Sequelize.STRING,
+
             },
             customer_name: {
-                type: sequelize.STRING,
+                type: Sequelize.STRING,
             },
 
             date_order: {
-                type: sequelize.DATE,
-                default: new DATE(),
+                type: Sequelize.DATE,
+                default: new Date(),
             },
             sender_addres: {
-                type: sequelize.TEXT,
+                type: Sequelize.TEXT,
             },
             receiver_addres: {
-                type: sequelize.TEXT,
+                type: Sequelize.TEXT,
             },
             total_price: {
-                type: sequelize.INTEGER,
+                type: Sequelize.FLOAT,
             },
-            status: {
-                type: sequelize.ENUM,
+            order_status: {
+                type: Sequelize.ENUM,
                 values: ['BELUM DI BAYAR', 'SUDAH DI BAYAR']
+
             },
             created_at: {
-                type: sequelize.DATE,
-                default: new DATE(),
+                type: Sequelize.DATE,
+                default: new Date(),
             },
             updated_at: {
-                type: sequelize.DATE,
-                default: new DATE(),
+                type: Sequelize.DATE,
+                default: new Date(),
             },
             deleted_at: {
-                type: sequelize.DATE,
+                type: Sequelize.DATE,
             },
         });
     },
