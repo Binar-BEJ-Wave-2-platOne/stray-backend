@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
+
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('verifikasi', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true, // untuk membuat auto id secara pengulangan

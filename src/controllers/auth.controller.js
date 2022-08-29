@@ -10,7 +10,7 @@ const register = async (req, res, next) => {
     const { role, name, no_telephone, email, alamat, user_name, password } =
       req.body;
     const [isRoleExist, isUserNameExist, isEmailExist] = await Promise.all([
-      Roles.findOne({ where: { role: role } }),
+      Roles.findOne({ where: { role: role } }),, m
       Users.findOne({ where: { user_name: user_name } }),
       Users.findOne({ where: { email: email } }),
     ]);
@@ -105,13 +105,11 @@ const login = async (req, res, next) => {
         },
       ],
     });
-
     if (!user) {
       return res.status(400).json({
         message: 'User not exist',
       });
     }
-
     if (
       user?.verifikasi?.length === 0 ||
       user?.verifikasi[0]['status'] === 'Pending'
@@ -120,7 +118,6 @@ const login = async (req, res, next) => {
         message: 'Pending account, Please verify Your email',
       });
     }
-
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({
@@ -224,7 +221,6 @@ const confirm = async (req, res, next) => {
     message: 'Congratulation activation account successful',
   });
 };
-
 module.exports = {
   register,
   login,
