@@ -1,9 +1,18 @@
 const { verify } = require('jsonwebtoken')
+const joi = require('joi')
+
 const { Orders, Users, Promos } = require('../models/index')
+
 
 const CreateOrder = async(req, res, next) => {
     try {
         const bodies = req.body
+
+
+
+
+
+
         const userExist = await Users.findOne({
             where: {
                 id: bodies.id_users,
@@ -18,7 +27,7 @@ const CreateOrder = async(req, res, next) => {
             }
         }
 
-        const promoExist = Promos.findOne({
+        const promoExist = await Promos.findOne({
             where: {
                 id: bodies.id_promo,
             }
@@ -43,11 +52,68 @@ const CreateOrder = async(req, res, next) => {
             order_status: "BELUM DI BAYAR"
         })
 
-
-
     } catch (error) {
         next(error)
     }
 }
+
+
+const UpdateOrder = (req, res, next) => {
+
+    try {
+        const bodies = req.body
+        const orderExist = Orders.update({
+            where: {
+                id: Number(req.params.id)
+            }
+
+        })
+        if (!orderExist) {
+            throw {
+                code: 404,
+                message: "BARANG TIDAK TERSEDIA"
+            }
+        }
+
+        const order = Orders.update({
+            sender_addres: bodies.sender_addres,
+            receiver_address: bodies.receiver_address,
+            total_price: bodies.total_price,
+        }, {
+            where: {
+                id: orderExist.id
+            }
+        })
+
+        return res.status(201).json({
+            code: 201,
+            message: "PESAN SUDAH TERUPDATE"
+        })
+    } catch (error) {
+        next(error)
+    }
+
+
+}
+
+
+const deleteOrder = (res, req, next) => {
+    const bodies = req.body
+    try {
+        Orders.destroy({
+            where: {
+                id: Number(req.params.id)
+            }
+        })
+        return res.status(200).json({
+            code: 200,
+            message: "ORDER TELAH DI BATALKAN"
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+
 
 module.exports = { CreateOrder }
