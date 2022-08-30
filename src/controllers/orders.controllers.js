@@ -1,10 +1,18 @@
 const { verify } = require('jsonwebtoken')
-const { where } = require('sequelize/types')
+const joi = require('joi')
+
 const { Orders, Users, Promos } = require('../models/index')
+
 
 const CreateOrder = async(req, res, next) => {
     try {
         const bodies = req.body
+
+
+
+
+
+
         const userExist = await Users.findOne({
             where: {
                 id: bodies.id_users,
@@ -44,8 +52,6 @@ const CreateOrder = async(req, res, next) => {
             order_status: "BELUM DI BAYAR"
         })
 
-
-
     } catch (error) {
         next(error)
     }
@@ -56,7 +62,7 @@ const UpdateOrder = (req, res, next) => {
 
     try {
         const bodies = req.body
-        const orderExist = await Orders.update({
+        const orderExist = Orders.update({
             where: {
                 id: Number(req.params.id)
             }
@@ -69,7 +75,7 @@ const UpdateOrder = (req, res, next) => {
             }
         }
 
-        const order = await Orders.update({
+        const order = Orders.update({
             sender_addres: bodies.sender_addres,
             receiver_address: bodies.receiver_address,
             total_price: bodies.total_price,

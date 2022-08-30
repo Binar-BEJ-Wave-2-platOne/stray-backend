@@ -14,8 +14,8 @@ Payments.init({
     id_orders: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'orders', // nama table
-          key: 'id', // nama column
+            model: 'orders', // nama table
+            key: 'id', // nama column
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
@@ -31,14 +31,14 @@ Payments.init({
         type: DataTypes.INTEGER,
     },
     payment_status: {
-        type: Sequelize.DataTypes.ENUM,
+        type: DataTypes.ENUM,
         values: ['PAID', 'UNPAID']
     },
-},{
-    sequelize: connection, 
-    timestamps: true, 
-    underscored: true, 
-    paranoid: true, 
+}, {
+    sequelize: connection,
+    timestamps: true,
+    underscored: true,
+    paranoid: true,
     freezeTableName: true,
     tableName: 'payments'
 })
