@@ -51,6 +51,7 @@ const CreateOrder = async(req, res, next) => {
     }
 }
 
+<<<<<<< HEAD
 
 const UpdateOrder = (req, res, next) => {
 
@@ -111,4 +112,6 @@ const deleteOrder = (res, req, next) => {
 
 
 
+=======
+>>>>>>> 6f57ebc172d892c7bc2877ef04a8ccc0f291659b
 module.exports = { CreateOrder }
