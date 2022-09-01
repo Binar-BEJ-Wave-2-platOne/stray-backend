@@ -1,8 +1,18 @@
-const router = require('express').Router();
+const router = require('express').Router()
+const {
+    getItems,
+    postItems,
+    getItemsId,
+    updateItems,
+    deleteItems,
+} = require('../controllers/items.controllers')
+const validation = require('../middlewares/validation.middleware')
+const itemsSchema = require('../schemas/createitems.schema')
 
-const {getItems, postItems} = require('../controllers/items.controllers');
+router.get('/', getItems)
+router.get('/:id', getItemsId)
+router.post('/', validation(itemsSchema), postItems)
+router.put('/:id', updateItems)
+router.delete('/:id', deleteItems)
 
-router.get('/', getItems);
-router.post('/items', postItems);
-
-module.exports = router;
+module.exports = router

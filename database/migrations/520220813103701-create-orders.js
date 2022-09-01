@@ -52,8 +52,9 @@ module.exports = {
                 type: Sequelize.FLOAT,
             },
             order_status: {
+                type: Sequelize.ENUM,
+                values: ['BELUM DI BAYAR', 'SUDAH DI BAYAR']
 
-                type: Sequelize.INTEGER,
             },
             created_at: {
                 type: Sequelize.DATE,

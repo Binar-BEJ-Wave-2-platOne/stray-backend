@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require("sequelize")
 const connection = require("./sequelize")
+const sequelize = require('./sequelize')
 
 class Payments extends Model {}
 
@@ -13,8 +14,8 @@ Payments.init({
     id_orders: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'orders', // nama table
-          key: 'id', // nama column
+            model: 'orders', // nama table
+            key: 'id', // nama column
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
@@ -29,11 +30,15 @@ Payments.init({
     amount: {
         type: DataTypes.INTEGER,
     },
+    payment_status: {
+        type: DataTypes.ENUM,
+        values: ['PAID', 'UNPAID']
+    },
 }, {
-    sequelize: connection, 
-    timestamps: true, 
-    underscored: true, 
-    paranoid: true, 
+    sequelize: connection,
+    timestamps: true,
+    underscored: true,
+    paranoid: true,
     freezeTableName: true,
     tableName: 'payments'
 })

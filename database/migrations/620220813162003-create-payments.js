@@ -28,6 +28,10 @@ module.exports = {
       amount: {
         type: Sequelize.INTEGER,
       },
+      payment_status: {
+        type: Sequelize.ENUM,
+        values: ['PAID', 'UNPAID']
+      },
       created_at: {
         type: Sequelize.DATE,
         default: new Date(),
