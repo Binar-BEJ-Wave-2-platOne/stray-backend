@@ -1,57 +1,53 @@
-const {sequelize, Items} = require('../models')
-
+const { sequelize, Items } = require('../models')
 
 const getItems = async (req, res, next) => {
-    console.log( "getITEMS", req)    
+    console.log('getITEMS', req)
 
     try {
-       
-        const resItems=  await Items.findAll()
-        if(resItems !== 0){
+        const resItems = await Items.findAll()
+        if (resItems !== 0) {
             return res.status(200).json({
                 message: 'success get items',
-                data: resItems
+                data: resItems,
             })
-        }else {
+        } else {
             next(req)
         }
-
     } catch (error) {
         next(error)
     }
 }
 
-
 const postItems = async (req, res, next) => {
-    console.log( "postITEMS", req)  
+    console.log('postITEMS', req)
     const {
         item_name,
         item_category,
         item_quantity,
         item_price,
         item_image,
-        item_status
-        } = req.body  
+        item_status,
+    } = req.body
 
     try {
-       
-
-        await sequelize.transaction(async trx => {
-
-            await Items.create({
-               item_name,
-               item_category,
-               item_quantity,
-               item_price,
-               item_image,
-               item_status
-            }, {
-                transaction: trx
-            })
+        await sequelize.transaction(async (trx) => {
+            await Items.create(
+                {
+                    item_name,
+                    item_category,
+                    item_quantity,
+                    item_price,
+                    item_image,
+                    item_status,
+                },
+                {
+                    transaction: trx,
+                }
+            )
         })
 
         return res.status(201).json({
-            message: 'success create items'
+            message: 'success create items',
         })
     } catch (error) {
         next(error)
@@ -59,73 +55,71 @@ const postItems = async (req, res, next) => {
 }
 
 const getItemsId = async (req, res, next) => {
-    console.log( "getITEMS",  req.params)  
-    const {id} = req.params
+    console.log('getITEMS', req.params)
+    const { id } = req.params
 
     try {
-       
-        const resItems=  await Items.findOne(
-            { where: { id: id } }
-        )
-        if(resItems !== 0){
+        const resItems = await Items.findOne({ where: { id: id } })
+        if (resItems) {
             return res.status(200).json({
                 message: `success get items by id ${id}`,
-                data: [resItems]
+                data: resItems,
             })
-        }else {
-            next(req)
+        } else {
+            throw { code: 404, message: 'Item not found' }
         }
-
     } catch (error) {
         next(error)
     }
 }
 
 const updateItems = async (req, res, next) => {
-    console.log( "getITEMS",  req.params)  
-    const {id} = req.params
+    console.log('getITEMS', req.params)
+    const { id } = req.params
 
-    try {        
-        const itemUpdate =  await Items.update(
-            req.body,
-            {
-                where: { id : id },
-            });
+    try {
+        const findItem = await Items.findOne({
+            where: { id: id },
+        })
 
+        if (!findItem) {
+            throw { code: 404, message: 'Item not found' }
+        }
 
-        if(itemUpdate !== 0){
+        const itemUpdate = await Items.update(req.body, {
+            where: { id: id },
+        })
+
+        if (itemUpdate) {
             return res.status(200).json({
                 message: `success update items by id ${id}`,
             })
-        }else {
-            next(req)
+        } else {
+            throw { code: 404, message: 'update item failed' }
         }
-
     } catch (error) {
         next(error)
     }
 }
 
 const deleteItems = async (req, res, next) => {
-    console.log( "getITEMS",  req.params)  
-    const {id} = req.params
+    console.log('getITEMS', req.params)
+    const { id } = req.params
 
-    try {        
+    try {
         const itemDelete = await Items.destroy({
             where: {
-              id: id
-            }
-          });
+                id: id,
+            },
+        })
 
-
-        if(itemDelete !== 0){
+        if (itemDelete !== 0) {
             return res.status(200).json({
                 message: `success delete items by id ${id}`,
             })
-        }else {
+        } else {
             next(req)
         }
-
     } catch (error) {
         next(error)
     }
