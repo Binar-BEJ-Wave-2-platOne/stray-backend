@@ -1,17 +1,15 @@
 const { sequelize, Items } = require('../models')
 
 const getItems = async (req, res, next) => {
-    console.log('getITEMS', req)
-
     try {
         const resItems = await Items.findAll()
-        if (resItems !== 0) {
+        if (resItems) {
             return res.status(200).json({
                 message: 'success get items',
                 data: resItems,
             })
         } else {
-            next(req)
+            throw { code: 404, message: 'Items not found' }
         }
     } catch (error) {
         next(error)
@@ -19,7 +17,6 @@ const getItems = async (req, res, next) => {
 }
 
 const postItems = async (req, res, next) => {
-    console.log('postITEMS', req)
     const {
         item_name,
         item_category,
@@ -55,7 +52,6 @@ const postItems = async (req, res, next) => {
 }
 
 const getItemsId = async (req, res, next) => {
-    console.log('getITEMS', req.params)
     const { id } = req.params
 
     try {
@@ -74,7 +70,6 @@ const getItemsId = async (req, res, next) => {
 }
 
 const updateItems = async (req, res, next) => {
-    console.log('getITEMS', req.params)
     const { id } = req.params
 
     try {
@@ -103,7 +98,6 @@ const updateItems = async (req, res, next) => {
 }
 
 const deleteItems = async (req, res, next) => {
-    console.log('getITEMS', req.params)
     const { id } = req.params
 
     try {
