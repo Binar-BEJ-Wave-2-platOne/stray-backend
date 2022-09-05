@@ -7,12 +7,13 @@ const {
     deleteItems,
 } = require('../controllers/items.controllers')
 const validation = require('../middlewares/validation.middleware')
+const { isTokenValid } = require('../middlewares/verifyToken.middleware')
 const itemsSchema = require('../schemas/createitems.schema')
 
-router.get('/', getItems)
-router.get('/:id', getItemsId)
-router.post('/', validation(itemsSchema), postItems)
-router.put('/:id', updateItems)
-router.delete('/:id', deleteItems)
+router.get('/', isTokenValid('MEMBER'), getItems)
+router.get('/:id', isTokenValid('MEMBER'), getItemsId)
+router.post('/', isTokenValid('ADMIN'), validation(itemsSchema), postItems)
+router.put('/:id', isTokenValid('ADMIN'), updateItems)
+router.delete('/:id', isTokenValid('ADMIN'), deleteItems)
 
 module.exports = router
