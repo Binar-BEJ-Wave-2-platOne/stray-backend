@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "jest --watch",
-        "start": "node index.js",
-        "start:dev": "nodemon index.js"
+        "test": "jest --forceExit --detectOpenHandles",
+        "start": "node server.js",
+        "start:dev": "nodemon server.js"
     },
     "keywords": [],
     "author": "BEJ Wave 2 Plat One",
@@ -27,9 +27,12 @@
         "winston": "^3.8.1"
     },
     "devDependencies": {
-        "jest": "^28.1.3",
+        "jest": "^29.0.2",
         "nodemon": "^2.0.19",
         "sequelize-cli": "^6.4.1",
         "supertest": "^6.2.4"
+    },
+    "jest": {
+        "collectCoverage": true
     }
 }

@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable("orders", {
+        await queryInterface.createTable('orders', {
             id: {
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
@@ -14,25 +14,23 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 references: {
                     model: 'users', // nama table
-                    key: 'id' // nama column
+                    key: 'id', // nama column
                 },
                 onDelete: 'CASCADE',
-                onUpdate: 'CASCADE'
+                onUpdate: 'CASCADE',
             },
 
             id_promo: {
                 type: Sequelize.INTEGER,
                 references: {
                     model: 'promos',
-                    key: 'id'
+                    key: 'id',
                 },
                 onDelete: 'CASCADE',
-                onUpdate: 'CASCADE'
+                onUpdate: 'CASCADE',
             },
             no_invoice: {
-
                 type: Sequelize.STRING,
-
             },
             customer_name: {
                 type: Sequelize.STRING,
@@ -53,8 +51,7 @@ module.exports = {
             },
             order_status: {
                 type: Sequelize.ENUM,
-                values: ['BELUM DI BAYAR', 'SUDAH DI BAYAR']
-
+                values: ['Pending', 'Paid', 'Cancel'],
             },
             created_at: {
                 type: Sequelize.DATE,
@@ -67,10 +64,10 @@ module.exports = {
             deleted_at: {
                 type: Sequelize.DATE,
             },
-        });
+        })
     },
 
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable("orders");
-    }
-};
+        await queryInterface.dropTable('orders')
+    },
+}

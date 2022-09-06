@@ -1,35 +1,37 @@
-const Sequelize = require('sequelize')
-const sequelize = require('./sequelize')
+const { Model, DataTypes } = require('sequelize')
+const connection = require('./sequelize')
 
-class Promos extends Sequelize.Model {}
+class Promos extends Model {}
 
-Promos.init ({
-    id: {
-        type: Sequelize.DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        unique: true
-    },
-    promo_name: {
-        type: Sequelize.DataTypes.STRING
-    },
-    promo_category: {
-        type: Sequelize.DataTypes.STRING
-    },
-    promo_code: {
-        type: Sequelize.DataTypes.STRING
-    },
-    promo_amount: {
-        type: Sequelize.DataTypes.INTEGER
-    }
-},
+Promos.init(
     {
-    sequelize: sequelize,
-    timestamps: true,
-    underscored: true,
-    paranoid: true,
-    freezeTableName: true,
-    tableName: 'promos'
-})
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+            unique: true,
+        },
+        promo_name: {
+            type: DataTypes.STRING,
+        },
+        promo_category: {
+            type: DataTypes.STRING,
+        },
+        promo_code: {
+            type: DataTypes.STRING,
+        },
+        promo_amount: {
+            type: DataTypes.INTEGER,
+        },
+    },
+    {
+        sequelize: connection,
+        timestamps: true,
+        underscored: true,
+        paranoid: true,
+        freezeTableName: true,
+        tableName: 'promos',
+    }
+)
 
 module.exports = Promos
