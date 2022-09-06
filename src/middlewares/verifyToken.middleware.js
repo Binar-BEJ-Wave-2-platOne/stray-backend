@@ -22,7 +22,7 @@ const isTokenValid = (role) => (req, res, next) => {
         }
 
         req.email = decoded.email
-        req.id_users = decoded.id_users
+        req.id_users = decoded.user_id
         next()
     } catch (error) {
         next(error)
@@ -34,7 +34,7 @@ const refreshToken = (email, token) => {
         const decoded = jwt.verify(token, process.env.JWT_REFRESH)
         return {
             email: decoded.email,
-            id_users: decoded.id_users,
+            id_users: decoded.user_id,
             role: decoded.role.role,
         }
     } catch (error) {

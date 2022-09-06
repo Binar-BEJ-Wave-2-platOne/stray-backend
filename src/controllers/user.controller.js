@@ -55,11 +55,51 @@ const updateUser = async (req, res, next) => {
     const id = req.params.id
     delete req.body.user_name
     delete req.body.password
+
+    try {
+        if (req.body.role) {
+            const findRole = await Roles.findOne({
+                where: {
+                    name: req.body.role,
+                },
+            })
+            if (!findRole) {
+                throw { code: 404, message: 'Role not exist' }
+            }
+            delete req.body.role
+            req.body.role_id = findOne.id
+        }
+
+        const findOne = await Users.findByPk(id, {
+            attributes: ['id', 'name', 'no_telephone', 'email', 'alamat'],
+        })
+        if (!findOne) {
+            return res.status(200).json({
+                status: false,
+                message: 'User not found',
+            })
+        }
+
+        findOne.update(req.body)
+        return res.status(200).json({
+            status: true,
+            message: 'Success update user',
+            data: findOne,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const updateUserSelf = async (req, res, next) => {
+    const id = req.id_users
+    delete req.body.user_name
+    delete req.body.password
     delete req.body.role_id
 
     try {
         const findOne = await Users.findByPk(id, {
-            attributes: ['name', 'no_telephone', 'email', 'alamat'],
+            attributes: ['id', 'name', 'no_telephone', 'email', 'alamat'],
         })
         if (!findOne) {
             return res.status(200).json({
@@ -100,5 +140,6 @@ module.exports = {
     getAllUsers,
     getOneUser,
     updateUser,
+    updateUserSelf,
     deleteUser,
 }
