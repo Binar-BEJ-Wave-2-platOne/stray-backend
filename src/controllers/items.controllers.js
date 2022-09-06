@@ -107,7 +107,7 @@ const deleteItems = async (req, res, next) => {
             },
         })
 
-        if (itemDelete !== 0) {
+        if (itemDelete) {
             return res.status(200).json({
                 message: `success delete items by id ${id}`,
             })

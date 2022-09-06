@@ -7,7 +7,7 @@ const orderitems = require('../routes/orderitems.routes')
 const orders = require('../routes/orders.routes')
 const auth = require('../routes/auth.routes')
 const user = require('../routes/user.routes')
-const promos = requizre('../routes/promos.routes');
+const promos = require('../routes/promos.routes')
 const upload = require('../routes/uploadfile.routes')
 
 app.use(express.json())
