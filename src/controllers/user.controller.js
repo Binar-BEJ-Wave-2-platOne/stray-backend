@@ -26,7 +26,10 @@ const getAllUsers = async (req, res, next) => {
 }
 
 const getOneUser = async (req, res, next) => {
-    const id = req.params.id
+    let id = req.params.id
+    if (req.role === 'MEMBER') {
+        id = req.id_users
+    }
     const findOne = await Users.findByPk(id, {
         attributes: ['id', 'name', 'no_telephone', 'email', 'alamat'],
         include: [
@@ -52,7 +55,11 @@ const getOneUser = async (req, res, next) => {
 }
 
 const updateUser = async (req, res, next) => {
-    const id = req.params.id
+    let id = req.params.id
+    if (req.role === 'MEMBER') {
+        id = req.id_users
+        delete req.body.role
+    }
     delete req.body.user_name
     delete req.body.password
 
@@ -70,34 +77,6 @@ const updateUser = async (req, res, next) => {
             req.body.role_id = findOne.id
         }
 
-        const findOne = await Users.findByPk(id, {
-            attributes: ['id', 'name', 'no_telephone', 'email', 'alamat'],
-        })
-        if (!findOne) {
-            return res.status(200).json({
-                status: false,
-                message: 'User not found',
-            })
-        }
-
-        findOne.update(req.body)
-        return res.status(200).json({
-            status: true,
-            message: 'Success update user',
-            data: findOne,
-        })
-    } catch (error) {
-        next(error)
-    }
-}
-
-const updateUserSelf = async (req, res, next) => {
-    const id = req.id_users
-    delete req.body.user_name
-    delete req.body.password
-    delete req.body.role_id
-
-    try {
         const findOne = await Users.findByPk(id, {
             attributes: ['id', 'name', 'no_telephone', 'email', 'alamat'],
         })
@@ -140,6 +119,5 @@ module.exports = {
     getAllUsers,
     getOneUser,
     updateUser,
-    updateUserSelf,
     deleteUser,
 }
