@@ -14,7 +14,7 @@ const isTokenValid = (role) => (req, res, next) => {
         if (decoded.role.role != 'ADMIN') {
             if (decoded.role.role !== role) {
                 throw {
-                    code: 403, // forbidden
+                    code: 401,
                     message:
                         'Do not have authorization to access this resource',
                 }
@@ -23,6 +23,7 @@ const isTokenValid = (role) => (req, res, next) => {
 
         req.email = decoded.email
         req.id_users = decoded.user_id
+        req.role = decoded.role.role
         next()
     } catch (error) {
         next(error)

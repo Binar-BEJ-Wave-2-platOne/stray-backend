@@ -1,12 +1,69 @@
 const { Orders, OrderItems, Promos, Items } = require('../models/index')
 const { sequelize } = require('../models')
 
-const CreateOrder = async (req, res, next) => {
+const getAllOrder = async (req, res, next) => {
+    try {
+        let findAll = []
+        if (req.role === 'MEMBER') {
+            findAll = await Orders.findAll({
+                include: [
+                    {
+                        model: OrderItems,
+                        as: 'order_items',
+                    },
+                ],
+                where: {
+                    id_users: req.id_users,
+                },
+            })
+        } else {
+            findAll = await Orders.findAll({
+                include: [
+                    {
+                        model: OrderItems,
+                        as: 'order_items',
+                    },
+                ],
+            })
+        }
+
+        if (!findAll) {
+            throw {
+                code: 404,
+                message: 'Order is empty',
+            }
+        }
+
+        return res.status(200).json({
+            message: 'success get orders',
+            data: findAll,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const createOrder = async (req, res, next) => {
     try {
         const { ...createOrder } = req.body
         const itemResult = []
-        let findPromo = null
+        let findPromo = false
         let orderAmount = 0
+
+        for (const result of req.body.items) {
+            const { id_item, item_quantity, item_name, item_price } = result
+            const findItem = await Items.findByPk(id_item)
+            if (findItem) {
+                const itemData = {
+                    id_item: id_item,
+                    item_name: findItem.item_name,
+                    item_quantity: item_quantity,
+                    item_price: findItem.item_price,
+                }
+                itemResult.push(itemData)
+                orderAmount += findItem.item_price * item_quantity
+            }
+        }
 
         if (req.body.promo) {
             findPromo = await Promos.findOne({
@@ -21,21 +78,7 @@ const CreateOrder = async (req, res, next) => {
                     message: 'promo not found',
                 }
             }
-        }
-
-        for (const result of req.body.items) {
-            const { id_item, item_quantity } = result
-            const findItem = await Items.findByPk(id_item)
-            if (findItem) {
-                const itemData = {
-                    id_item: id_item,
-                    item_name: findItem.item_name,
-                    item_quantity: item_quantity,
-                    item_price: findItem.item_price,
-                }
-                itemResult.push(itemData)
-                orderAmount += findItem.item_price * item_quantity
-            }
+            orderAmount -= findPromo.promo_amount
         }
 
         await sequelize.transaction(async (t) => {
@@ -68,7 +111,7 @@ const CreateOrder = async (req, res, next) => {
                 }
             )
         })
-        return res.status(200).json({
+        return res.status(201).json({
             message: 'Create order has successful',
         })
     } catch (error) {
@@ -76,58 +119,48 @@ const CreateOrder = async (req, res, next) => {
     }
 }
 
-const UpdateOrder = (req, res, next) => {
+const updateOrder = async (req, res, next) => {
     try {
-        const bodies = req.body
-        const orderExist = Orders.update({
-            where: {
-                id: Number(req.params.id),
-            },
-        })
-        if (!orderExist) {
+        const id = req.params.id
+
+        const findOrder = await Orders.findByPk(id)
+        if (!findOrder) {
             throw {
                 code: 404,
-                message: 'BARANG TIDAK TERSEDIA',
+                message: 'Order not found',
             }
         }
 
-        const order = Orders.update(
-            {
-                sender_addres: bodies.sender_addres,
-                receiver_address: bodies.receiver_address,
-                total_price: bodies.total_price,
-            },
-            {
-                where: {
-                    id: orderExist.id,
-                },
-            }
-        )
+        await findOrder.update(req.body)
 
-        return res.status(201).json({
-            code: 201,
-            message: 'PESAN SUDAH TERUPDATE',
-        })
-    } catch (error) {
-        next(error)
-    }
-}
-
-const deleteOrder = (res, req, next) => {
-    const bodies = req.body
-    try {
-        Orders.destroy({
-            where: {
-                id: Number(req.params.id),
-            },
-        })
         return res.status(200).json({
-            code: 200,
-            message: 'ORDER TELAH DI BATALKAN',
+            message: 'Update order successful',
+            data: findOrder,
         })
     } catch (error) {
         next(error)
     }
 }
 
-module.exports = { CreateOrder }
+const deleteOrder = async (res, req, next) => {
+    try {
+        const id = req.params.id
+        const findOrder = await Orders.findByPk(id)
+
+        if (!findOrder) {
+            return res.status(404).json({
+                message: 'Order not found',
+            })
+        }
+
+        await findOrder.destroy()
+
+        return res.status(200).json({
+            message: 'Delete order successful',
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports = { createOrder, updateOrder, deleteOrder, getAllOrder }

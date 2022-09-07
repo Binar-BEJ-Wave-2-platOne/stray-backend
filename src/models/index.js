@@ -64,6 +64,11 @@ Orders.hasOne(Payments, {
     foreignKey: 'id_orders',
 })
 
+Orders.hasMany(OrderItems, {
+    as: 'order_items',
+    foreignKey: 'id_order',
+})
+
 Payments.belongsTo(Orders, {
     as: 'orders',
     foreignKey: 'id_orders',
