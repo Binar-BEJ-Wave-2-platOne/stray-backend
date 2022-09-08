@@ -10,6 +10,7 @@ const adminUpload = require('./admin/uploadfile.routes')
 const memberUser = require('./member/user.routes')
 const memberItems = require('./member/items.routes')
 const memberOrders = require('./member/orders.routes')
+const memberCart = require('./member/cart.routes')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -29,6 +30,7 @@ app.group('/api/v1/member', (router) => {
     router.use('/users', memberUser)
     router.use('/items', memberItems)
     router.use('/orders', memberOrders)
+    router.use('/cart', memberCart)
 })
 
 module.exports = app
