@@ -7,6 +7,7 @@ const OrderItems = require('./order_items')
 const Orders = require('./orders')
 const Promos = require('./promos')
 const Payments = require('./payments')
+const Cart = require('./cart')
 
 Roles.hasMany(Users, {
     as: 'users',
@@ -84,4 +85,5 @@ module.exports = {
     Orders,
     Promos,
     Payments,
+    Cart,
 }

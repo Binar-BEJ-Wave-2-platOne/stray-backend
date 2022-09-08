@@ -11,6 +11,15 @@ Cart.init(
             primaryKey: true,
             allowNull: false,
         },
+        id_users: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'users',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+        },
         id_item: {
             type: DataTypes.INTEGER,
             references: {
@@ -25,6 +34,9 @@ Cart.init(
         },
         price: {
             type: DataTypes.FLOAT,
+        },
+        quantity: {
+            type: DataTypes.INTEGER,
         },
     },
     {

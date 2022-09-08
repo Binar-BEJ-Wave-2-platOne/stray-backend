@@ -8,6 +8,15 @@ module.exports = {
                 primaryKey: true,
                 autoIncrement: true,
             },
+            id_users: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: 'users',
+                    key: 'id',
+                },
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+            },
             id_item: {
                 type: Sequelize.INTEGER,
                 references: {
@@ -22,6 +31,13 @@ module.exports = {
             },
             price: {
                 type: Sequelize.FLOAT,
+            },
+            quantity: {
+                type: Sequelize.INTEGER,
+            },
+            created_at: {
+                type: Sequelize.DATE,
+                default: new Date(),
             },
             updated_at: {
                 type: Sequelize.DATE,
