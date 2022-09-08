@@ -6,6 +6,7 @@ const adminItems = require('./admin/items.routes')
 const adminOrders = require('./admin/orders.routes')
 const adminUser = require('./admin/user.routes')
 const adminUpload = require('./admin/uploadfile.routes')
+const adminPromo = require('./admin/promos.routes')
 
 const memberUser = require('./member/user.routes')
 const memberItems = require('./member/items.routes')
@@ -24,6 +25,7 @@ app.group('/api/v1/admin', (router) => {
     router.use('/orders', adminOrders)
     router.use('/users', adminUser)
     router.use('/upload', adminUpload)
+    router.use('/promos', adminPromo)
 })
 
 app.group('/api/v1/member', (router) => {

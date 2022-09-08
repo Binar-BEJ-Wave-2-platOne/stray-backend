@@ -1,64 +1,74 @@
-const {sequelize, Promos} = require ('../models')
+const { sequelize, Promos } = require('../models')
+const { Op } = require('sequelize')
 
 const getPromos = async (req, res, next) => {
-    console.log( "getPromos", req)
-    
     try {
         const resPromos = await Promos.findAll()
-        if(resPromos > 0){
+        if (resPromos.length > 0) {
             return res.status(200).json({
                 message: 'success get promos',
-                data: resPromos
+                data: resPromos,
             })
         }
 
-        throw({
+        throw {
             code: 404,
-            message: 'Promos not found'
-        })
+            message: 'Promos not found',
+        }
     } catch (error) {
         next(error)
     }
 }
 
 const getaPromo = async (req, res, next) => {
-    const id = req.params.id
-
     try {
+        const id = req.params.id
         const findOne = await Promos.findByPk(req.params.id)
         if (findOne) {
             return res.status(200).json({
                 message: 'success get promo',
-                data: findOne
+                data: findOne,
             })
         }
 
-        throw({
+        throw {
             code: 404,
-            message: 'Promo not found'
-        })
+            message: 'Promo not found',
+        }
     } catch (error) {
         next(error)
     }
 }
 
 const createPromos = async (req, res, next) => {
-    console.log( "createPromos", req)
-
     try {
-        await sequelize.transaction(async trx => {
-            await Promos.create({
-                promo_name,
-                promo_category,
-                promo_code,
-                promo_amount
-            }, {
-                transaction: trx
-            })
+        const { ...createPromo } = req.body
+        const findCode = await Promos.findOne({
+            where: {
+                promo_code: createPromo.promo_code,
+            },
+        })
+
+        if (findCode) {
+            throw {
+                code: 409,
+                message: 'Promo code is exist',
+            }
+        }
+
+        await sequelize.transaction(async (trx) => {
+            await Promos.create(
+                {
+                    ...createPromo,
+                },
+                {
+                    transaction: trx,
+                }
+            )
         })
 
         return res.status(201).json({
-            message: 'Success create promos'
+            message: 'Success create promos',
         })
     } catch (error) {
         next(error)
@@ -66,42 +76,54 @@ const createPromos = async (req, res, next) => {
 }
 
 const updatePromos = async (req, res, next) => {
-    const id = req.params.id
-
     try {
         const findOnePromo = await Promos.findByPk(req.params.id)
+        const findCode = await Promos.findOne({
+            where: {
+                promo_code: req.body.promo_code,
+                id: {
+                    [Op.notIn]: [req.params.id],
+                },
+            },
+        })
+
+        if (findCode) {
+            throw {
+                code: 409,
+                message: 'Promo code is exist',
+            }
+        }
+
         if (findOnePromo) {
             await findOnePromo.update(req.body)
             return res.status(200).json({
-                message: 'Update promo success'
+                message: 'Update promo success',
             })
         }
 
-        throw({
+        throw {
             code: 404,
-            message: 'Promo not found'
-        })
+            message: 'Promo not found',
+        }
     } catch (error) {
         next(error)
     }
 }
 
-const deletePromos = async(req, res, next) => {
-    const id = req.params.id
-
+const deletePromos = async (req, res, next) => {
     try {
         const findOnePromo = await Promos.findByPk(req.params.id)
         if (findOnePromo) {
             await findOnePromo.destroy()
             return res.status(200).json({
-                message: 'Delete promo success'
+                message: 'Delete promo success',
             })
         }
 
-        throw({
+        throw {
             code: 404,
-            message: 'Promo not found'
-        })
+            message: 'Promo not found',
+        }
     } catch (error) {
         next(error)
     }
@@ -112,5 +134,5 @@ module.exports = {
     getaPromo,
     createPromos,
     updatePromos,
-    deletePromos
+    deletePromos,
 }
