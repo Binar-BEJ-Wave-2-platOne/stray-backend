@@ -30,7 +30,7 @@ app.group('/api/v1/member', (router) => {
     router.use('/users', memberUser)
     router.use('/items', memberItems)
     router.use('/orders', memberOrders)
-    router.use('/cart', memberCart)
+    router.use('/carts', memberCart)
 })
 
 module.exports = app

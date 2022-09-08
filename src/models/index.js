@@ -7,7 +7,7 @@ const OrderItems = require('./order_items')
 const Orders = require('./orders')
 const Promos = require('./promos')
 const Payments = require('./payments')
-const Cart = require('./cart')
+const Carts = require('./carts')
 
 Roles.hasMany(Users, {
     as: 'users',
@@ -75,6 +75,16 @@ Payments.belongsTo(Orders, {
     foreignKey: 'id_orders',
 })
 
+Items.hasMany(Carts, {
+    as: 'items',
+    foreignKey: 'id',
+})
+
+Carts.belongsTo(Items, {
+    as: 'cart',
+    foreignKey: 'id_item',
+})
+
 module.exports = {
     sequelize,
     Users,
@@ -85,5 +95,5 @@ module.exports = {
     Orders,
     Promos,
     Payments,
-    Cart,
+    Carts,
 }
