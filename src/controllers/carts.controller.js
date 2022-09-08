@@ -1,4 +1,4 @@
-const { sequelize, Cart, Items } = require('../models')
+const { sequelize, Carts, Items } = require('../models')
 
 const createCart = async (req, res, next) => {
     try {
@@ -12,7 +12,7 @@ const createCart = async (req, res, next) => {
         }
 
         await sequelize.transaction(async (t) => {
-            insertCart = await Cart.create(
+            insertCart = await Carts.create(
                 {
                     id_users: req.id_users,
                     id_item: id_item,
@@ -34,33 +34,21 @@ const createCart = async (req, res, next) => {
     }
 }
 
-const getAllCart = async(req, res, next) => {
+const getAllCart = async (req, res, next) => {
     try {
-        let findAll = []
-        if (req.role === 'MEMBER') {
-            findAll = await Cart.findAll({
-                include: [
-                    {
-                        model: 'Items',
-                        as: 'id',
-                    },
-                ],
-                where: {
-                    id_users: req.id_users,
+        const findAll = await Carts.findAll({
+            include: [
+                {
+                    model: Items,
+                    as: 'cart',
                 },
-            })
-        } else {
-            findAll = await Cart.findAll({
-                include: [
-                    {
-                        model: 'Items',
-                        as: 'id',
-                    },
-                ],
-            })
-        }
+            ],
+            where: {
+                id_users: req.id_users,
+            },
+        })
 
-        if (!findAll) {
+        if (findAll.length == 0) {
             throw {
                 code: 404,
                 message: 'Cart is empty',
@@ -80,7 +68,7 @@ const updateCart = async (req, res, next) => {
     try {
         const id = req.params.id
 
-        const findCart = await Cart.findByPk(id)
+        const findCart = await Carts.findByPk(id)
         if (!findCart) {
             throw {
                 code: 404,
@@ -96,17 +84,17 @@ const updateCart = async (req, res, next) => {
         })
     } catch (error) {
         next(error)
-    } 
+    }
 }
 
-const deleteCart = async (res, req, next) => {
+const deleteCart = async (req, res, next) => {
     try {
         const id = req.params.id
-        const findCart = await Cart.findByPk(id)
+        const findCart = await Carts.findByPk(id)
 
         if (!findCart) {
             throw {
-                code: 404, 
+                code: 404,
                 message: 'Cart not found',
             }
         }
@@ -117,13 +105,13 @@ const deleteCart = async (res, req, next) => {
             message: 'Delete cart success',
         })
     } catch (error) {
-       next(error) 
+        next(error)
     }
 }
 
 module.exports = {
     createCart,
-    getAllCart
+    getAllCart,
     updateCart,
-    deleteCart
+    deleteCart,
 }
