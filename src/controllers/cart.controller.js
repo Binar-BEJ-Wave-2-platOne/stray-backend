@@ -123,7 +123,7 @@ const deleteCart = async (res, req, next) => {
 
 module.exports = {
     createCart,
-    getAllCart
+    getAllCart,
     updateCart,
     deleteCart
 }
