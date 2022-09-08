@@ -1,12 +1,20 @@
-const router = require('express').Router();
-const { createPromos, updatePromos, deletePromos, getPromos, getaPromo } = require('../controllers/promos.controller');
-const validation = require('../middlewares/validation.middleware');
-const promosSchema = require('../schemas/promos.schema');
+const router = require('express').Router()
+const {
+    createPromos,
+    updatePromos,
+    deletePromos,
+    getPromos,
+    getaPromo,
+} = require('../../controllers/promos.controller')
 
-router.get('/', getPromos);
-router.get('/:id', getaPromo);
-router.post('/', validation(promosSchema), createPromos);
-router.patch('/:id', updatePromos);
-router.delete('/:id', deletePromos);
+const { isTokenValid } = require('../../middlewares/verifyToken.middleware')
+const validation = require('../../middlewares/validation.middleware')
+const promosSchema = require('../../schemas/promos.schema')
 
-module.exports = router;
+router.get('/', isTokenValid('ADMIN'), getPromos)
+router.get('/:id', isTokenValid('ADMIN'), getaPromo)
+router.post('/', isTokenValid('ADMIN'), validation(promosSchema), createPromos)
+router.patch('/:id', isTokenValid('ADMIN'), updatePromos)
+router.delete('/:id', isTokenValid('ADMIN'), deletePromos)
+
+module.exports = router
