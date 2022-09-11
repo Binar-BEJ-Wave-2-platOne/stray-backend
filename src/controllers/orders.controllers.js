@@ -75,7 +75,7 @@ const createOrder = async (req, res, next) => {
             if (!findPromo) {
                 throw {
                     code: 404,
-                    message: 'promo not found',
+                    message: 'promo not founds',
                 }
             }
             orderAmount -= findPromo.promo_amount
