@@ -1,25 +1,29 @@
 const { Orders, OrderItems, Promos, Items } = require('../models/index')
 const { sequelize } = require('../models')
 
-const getAllOrder = async(req, res, next) => {
+const getAllOrder = async (req, res, next) => {
     try {
         let findAll = []
         if (req.role === 'MEMBER') {
             findAll = await Orders.findAll({
-                include: [{
-                    model: OrderItems,
-                    as: 'order_items',
-                }, ],
+                include: [
+                    {
+                        model: OrderItems,
+                        as: 'order_items',
+                    },
+                ],
                 where: {
                     id_users: req.id_users,
                 },
             })
         } else {
             findAll = await Orders.findAll({
-                include: [{
-                    model: OrderItems,
-                    as: 'order_items',
-                }, ],
+                include: [
+                    {
+                        model: OrderItems,
+                        as: 'order_items',
+                    },
+                ],
             })
         }
 
@@ -39,9 +43,9 @@ const getAllOrder = async(req, res, next) => {
     }
 }
 
-const createOrder = async(req, res, next) => {
+const createOrder = async (req, res, next) => {
     try {
-        const {...createOrder } = req.body
+        const { ...createOrder } = req.body
         const itemResult = []
         let findPromo = false
         let orderAmount = 0
@@ -77,18 +81,21 @@ const createOrder = async(req, res, next) => {
             orderAmount -= findPromo.promo_amount
         }
 
-        await sequelize.transaction(async(t) => {
-            insertOrder = await Orders.create({
-                ...createOrder,
-                id_users: req.id_users,
-                id_promo: findPromo ? .id,
-                no_invoice: `INV-${Date.now()}`,
-                date_order: Date.now(),
-                total_price: orderAmount,
-                order_status: 'Pending',
-            }, {
-                transaction: t,
-            })
+        await sequelize.transaction(async (t) => {
+            insertOrder = await Orders.create(
+                {
+                    ...createOrder,
+                    id_users: req.id_users,
+                    id_promo: findPromo?.id,
+                    no_invoice: `INV-${Date.now()}`,
+                    date_order: Date.now(),
+                    total_price: orderAmount,
+                    order_status: 'Pending',
+                },
+                {
+                    transaction: t,
+                }
+            )
             await OrderItems.bulkCreate(
                 itemResult.map((item) => {
                     return {
@@ -98,7 +105,8 @@ const createOrder = async(req, res, next) => {
                         item_price: item.item_price,
                         item_quantity: item.item_quantity,
                     }
-                }), {
+                }),
+                {
                     transaction: t,
                 }
             )
@@ -111,7 +119,7 @@ const createOrder = async(req, res, next) => {
     }
 }
 
-const updateOrder = async(req, res, next) => {
+const updateOrder = async (req, res, next) => {
     try {
         const id = req.params.id
 
@@ -134,7 +142,7 @@ const updateOrder = async(req, res, next) => {
     }
 }
 
-const deleteOrder = async(res, req, next) => {
+const deleteOrder = async (res, req, next) => {
     try {
         const id = req.params.id
         const findOrder = await Orders.findByPk(id)

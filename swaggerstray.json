@@ -1,0 +1,1545 @@
+{
+	"swagger": "2.0",
+	"info": {
+	  "version": "1.0",
+	  "title": "Stray",
+	  "contact": {}
+	},
+	"host": "localhost:3000",
+	"basePath": "/api/v1",
+	"securityDefinitions": {},
+	"schemes": [
+	  "http"
+	],
+	"consumes": [
+	  "application/json"
+	],
+	"produces": [
+	  "application/json"
+	],
+	"paths": {
+	  "/admin/orders": {
+		"post": {
+		  "summary": "createOrder",
+		  "tags": [
+			"Order"
+		  ],
+		  "operationId": "createOrder",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/createOrderRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"get": {
+		  "summary": "getAllOrder",
+		  "tags": [
+			"Order"
+		  ],
+		  "operationId": "getAllOrder",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/member/orders": {
+		"post": {
+		  "summary": "createrOrder",
+		  "tags": [
+			"Order"
+		  ],
+		  "operationId": "createrOrder",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/createrOrderRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"get": {
+		  "summary": "getAllOrder1",
+		  "tags": [
+			"Order"
+		  ],
+		  "operationId": "getAllOrder1",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/member/orders/34": {
+		"patch": {
+		  "summary": "updateOrder",
+		  "tags": [
+			"Order"
+		  ],
+		  "operationId": "updateOrder",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/updateOrderRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/admin/items": {
+		"post": {
+		  "summary": "createItem",
+		  "tags": [
+			"Item"
+		  ],
+		  "operationId": "createItem",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/createItemRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"get": {
+		  "summary": "getAllItems",
+		  "tags": [
+			"Item"
+		  ],
+		  "operationId": "getAllItems",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/admin/items/2": {
+		"put": {
+		  "summary": "updateItem",
+		  "tags": [
+			"Item"
+		  ],
+		  "operationId": "updateItem",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/updateItemRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"delete": {
+		  "summary": "deleteItem",
+		  "tags": [
+			"Item"
+		  ],
+		  "operationId": "deleteItem",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"get": {
+		  "summary": "getIemsById",
+		  "tags": [
+			"Item"
+		  ],
+		  "operationId": "getIemsById",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/admin/upload": {
+		"post": {
+		  "summary": "uploadImage",
+		  "tags": [
+			"Item"
+		  ],
+		  "operationId": "uploadImage",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "consumes": [
+			"application/x-www-form-urlencoded"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "photo",
+			  "in": "formData",
+			  "required": true,
+			  "type": "string",
+			  "description": ""
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/admin/users": {
+		"get": {
+		  "summary": "usersAll",
+		  "tags": [
+			"User"
+		  ],
+		  "operationId": "usersAll",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/users/1": {
+		"get": {
+		  "summary": "usersById",
+		  "tags": [
+			"User"
+		  ],
+		  "operationId": "usersById",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": true,
+			  "type": "string",
+			  "description": ""
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  },
+		  "security": []
+		},
+		"patch": {
+		  "summary": "userUpdate",
+		  "tags": [
+			"User"
+		  ],
+		  "operationId": "userUpdate",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/userUpdateRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/users/12": {
+		"delete": {
+		  "summary": "userDelete",
+		  "tags": [
+			"User"
+		  ],
+		  "operationId": "userDelete",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/userDeleteRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/member/users": {
+		"get": {
+		  "summary": "userById",
+		  "tags": [
+			"User"
+		  ],
+		  "operationId": "userById",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"patch": {
+		  "summary": "updateUser",
+		  "tags": [
+			"User"
+		  ],
+		  "operationId": "updateUser",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/updateUserRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/admin/promos": {
+		"get": {
+		  "summary": "getAllPromo",
+		  "tags": [
+			"Promo"
+		  ],
+		  "operationId": "getAllPromo",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"post": {
+		  "summary": "createPromo",
+		  "tags": [
+			"Promo"
+		  ],
+		  "operationId": "createPromo",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/createPromoRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/admin/promos/1": {
+		"get": {
+		  "summary": "getPromoById",
+		  "tags": [
+			"Promo"
+		  ],
+		  "operationId": "getPromoById",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/admin/promos/2": {
+		"patch": {
+		  "summary": "updatePromo",
+		  "tags": [
+			"Promo"
+		  ],
+		  "operationId": "updatePromo",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/updatePromoRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"delete": {
+		  "summary": "deletePromo",
+		  "tags": [
+			"Promo"
+		  ],
+		  "operationId": "deletePromo",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/deletePromoRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/member/items": {
+		"get": {
+		  "summary": "getItems",
+		  "tags": [
+			"Items"
+		  ],
+		  "operationId": "getItems",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/member/items/1": {
+		"get": {
+		  "summary": "getItemsById",
+		  "tags": [
+			"Items"
+		  ],
+		  "operationId": "getItemsById",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/member/carts": {
+		"post": {
+		  "summary": "createCart",
+		  "tags": [
+			"Cart"
+		  ],
+		  "operationId": "createCart",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/createCartRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"get": {
+		  "summary": "getAllCart",
+		  "tags": [
+			"Cart"
+		  ],
+		  "operationId": "getAllCart",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/member/carts/3": {
+		"patch": {
+		  "summary": "updateCart",
+		  "tags": [
+			"Cart"
+		  ],
+		  "operationId": "updateCart",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/updateCartRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		},
+		"delete": {
+		  "summary": "deleteCart",
+		  "tags": [
+			"Cart"
+		  ],
+		  "operationId": "deleteCart",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/auth/refresh_token": {
+		"post": {
+		  "summary": "Refresh Token",
+		  "tags": [
+			"Misc"
+		  ],
+		  "operationId": "RefreshToken",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/RefreshTokenRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/auth/login": {
+		"post": {
+		  "summary": "Login",
+		  "tags": [
+			"Misc"
+		  ],
+		  "operationId": "Login",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/LoginRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  },
+	  "/auth/register": {
+		"post": {
+		  "summary": "Register",
+		  "tags": [
+			"Misc"
+		  ],
+		  "operationId": "Register",
+		  "deprecated": false,
+		  "produces": [
+			"application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "required": false,
+			  "default": "Bearer {token}",
+			  "type": "string"
+			},
+			{
+			  "name": "Body",
+			  "in": "body",
+			  "required": true,
+			  "description": "",
+			  "schema": {
+				"$ref": "#/definitions/RegisterRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "",
+			  "headers": {}
+			}
+		  }
+		}
+	  }
+	},
+	"definitions": {
+	  "createOrderRequest": {
+		"title": "createOrderRequest",
+		"example": {
+		  "promo": "MDK",
+		  "sender_addres": "fdsafasdfadsfasdM",
+		  "receiver_addres": "ACEsdfasdfasdfJ",
+		  "customer_name": "Akhmad",
+		  "items": [
+			{
+			  "id_item": "1",
+			  "item_quantity": "5"
+			}
+		  ]
+		},
+		"type": "object",
+		"properties": {
+		  "promo": {
+			"type": "string"
+		  },
+		  "sender_addres": {
+			"type": "string"
+		  },
+		  "receiver_addres": {
+			"type": "string"
+		  },
+		  "customer_name": {
+			"type": "string"
+		  },
+		  "items": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/definitions/Item"
+			}
+		  }
+		},
+		"required": [
+		  "promo",
+		  "sender_addres",
+		  "receiver_addres",
+		  "customer_name",
+		  "items"
+		]
+	  },
+	  "Item": {
+		"title": "Item",
+		"example": {
+		  "id_item": "1",
+		  "item_quantity": "5"
+		},
+		"type": "object",
+		"properties": {
+		  "id_item": {
+			"type": "string"
+		  },
+		  "item_quantity": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "id_item",
+		  "item_quantity"
+		]
+	  },
+	  "createItemRequest": {
+		"title": "createItemRequest",
+		"example": {
+		  "item_name": "Kipas",
+		  "item_category": "Elektronik",
+		  "item_price": 50000,
+		  "item_image": "https://ik.imagekit.io/34nabbgwi/photo-1662540161854-image_2022-09-07_11-17-11_KsKUnFDUN.png"
+		},
+		"type": "object",
+		"properties": {
+		  "item_name": {
+			"type": "string"
+		  },
+		  "item_category": {
+			"type": "string"
+		  },
+		  "item_price": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "item_image": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "item_name",
+		  "item_category",
+		  "item_price",
+		  "item_image"
+		]
+	  },
+	  "updateItemRequest": {
+		"title": "updateItemRequest",
+		"example": {
+		  "item_name": "Kipas Angin",
+		  "item_category": "Elektronik",
+		  "item_price": 50000
+		},
+		"type": "object",
+		"properties": {
+		  "item_name": {
+			"type": "string"
+		  },
+		  "item_category": {
+			"type": "string"
+		  },
+		  "item_price": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "item_name",
+		  "item_category",
+		  "item_price"
+		]
+	  },
+	  "userUpdateRequest": {
+		"title": "userUpdateRequest",
+		"example": {
+		  "name": "Akhmad Maknur Member",
+		  "no_telephone": "082394717430",
+		  "email": "akhmad.maknur@gmail.com",
+		  "alamat": null
+		},
+		"type": "object",
+		"properties": {
+		  "name": {
+			"type": "string"
+		  },
+		  "no_telephone": {
+			"type": "string"
+		  },
+		  "email": {
+			"type": "string"
+		  },
+		  "alamat": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "name",
+		  "no_telephone",
+		  "email",
+		  "alamat"
+		]
+	  },
+	  "userDeleteRequest": {
+		"title": "userDeleteRequest",
+		"example": {
+		  "name": "Akhmad Maknur",
+		  "no_telephone": "082394717430",
+		  "email": "akhmad.maknur@gmail.com",
+		  "alamat": null,
+		  "role": "MEMBER"
+		},
+		"type": "object",
+		"properties": {
+		  "name": {
+			"type": "string"
+		  },
+		  "no_telephone": {
+			"type": "string"
+		  },
+		  "email": {
+			"type": "string"
+		  },
+		  "alamat": {
+			"type": "string"
+		  },
+		  "role": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "name",
+		  "no_telephone",
+		  "email",
+		  "alamat",
+		  "role"
+		]
+	  },
+	  "createPromoRequest": {
+		"title": "createPromoRequest",
+		"example": {
+		  "promo_name": "Promo Akhir Tahun",
+		  "promo_category": "Fashion",
+		  "promo_code": "FASH",
+		  "promo_amount": 5000
+		},
+		"type": "object",
+		"properties": {
+		  "promo_name": {
+			"type": "string"
+		  },
+		  "promo_category": {
+			"type": "string"
+		  },
+		  "promo_code": {
+			"type": "string"
+		  },
+		  "promo_amount": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "promo_name",
+		  "promo_category",
+		  "promo_code",
+		  "promo_amount"
+		]
+	  },
+	  "updatePromoRequest": {
+		"title": "updatePromoRequest",
+		"example": {
+		  "promo_name": "Promo Akhir Tahun",
+		  "promo_category": "Fashion",
+		  "promo_code": "FASH3",
+		  "promo_amount": 6000
+		},
+		"type": "object",
+		"properties": {
+		  "promo_name": {
+			"type": "string"
+		  },
+		  "promo_category": {
+			"type": "string"
+		  },
+		  "promo_code": {
+			"type": "string"
+		  },
+		  "promo_amount": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "promo_name",
+		  "promo_category",
+		  "promo_code",
+		  "promo_amount"
+		]
+	  },
+	  "deletePromoRequest": {
+		"title": "deletePromoRequest",
+		"example": {
+		  "promo_name": "Promo Akhir Tahun",
+		  "promo_category": "Fashion",
+		  "promo_code": "FASH3",
+		  "promo_amount": 6000
+		},
+		"type": "object",
+		"properties": {
+		  "promo_name": {
+			"type": "string"
+		  },
+		  "promo_category": {
+			"type": "string"
+		  },
+		  "promo_code": {
+			"type": "string"
+		  },
+		  "promo_amount": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "promo_name",
+		  "promo_category",
+		  "promo_code",
+		  "promo_amount"
+		]
+	  },
+	  "updateUserRequest": {
+		"title": "updateUserRequest",
+		"example": {
+		  "name": "Akhmad Maknur lagi"
+		},
+		"type": "object",
+		"properties": {
+		  "name": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "name"
+		]
+	  },
+	  "createrOrderRequest": {
+		"title": "createrOrderRequest",
+		"example": {
+		  "promo": "MDK",
+		  "sender_addres": "Makassar ji tawwa",
+		  "receiver_addres": "makassar ji tawwa",
+		  "customer_name": "akhmad",
+		  "items": [
+			{
+			  "id_item": 1,
+			  "item_quantity": 2
+			}
+		  ]
+		},
+		"type": "object",
+		"properties": {
+		  "promo": {
+			"type": "string"
+		  },
+		  "sender_addres": {
+			"type": "string"
+		  },
+		  "receiver_addres": {
+			"type": "string"
+		  },
+		  "customer_name": {
+			"type": "string"
+		  },
+		  "items": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/definitions/Item1"
+			}
+		  }
+		},
+		"required": [
+		  "promo",
+		  "sender_addres",
+		  "receiver_addres",
+		  "customer_name",
+		  "items"
+		]
+	  },
+	  "Item1": {
+		"title": "Item1",
+		"example": {
+		  "id_item": 1,
+		  "item_quantity": 2
+		},
+		"type": "object",
+		"properties": {
+		  "id_item": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "item_quantity": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "id_item",
+		  "item_quantity"
+		]
+	  },
+	  "updateOrderRequest": {
+		"title": "updateOrderRequest",
+		"example": {
+		  "sender_addres": "Makassar ji abca",
+		  "status": "Paid"
+		},
+		"type": "object",
+		"properties": {
+		  "sender_addres": {
+			"type": "string"
+		  },
+		  "status": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "sender_addres",
+		  "status"
+		]
+	  },
+	  "createCartRequest": {
+		"title": "createCartRequest",
+		"example": {
+		  "id_item": 1,
+		  "quantity": 1
+		},
+		"type": "object",
+		"properties": {
+		  "id_item": {
+			"type": "integer",
+			"format": "int32"
+		  },
+		  "quantity": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "id_item",
+		  "quantity"
+		]
+	  },
+	  "updateCartRequest": {
+		"title": "updateCartRequest",
+		"example": {
+		  "quantity": 2
+		},
+		"type": "object",
+		"properties": {
+		  "quantity": {
+			"type": "integer",
+			"format": "int32"
+		  }
+		},
+		"required": [
+		  "quantity"
+		]
+	  },
+	  "RefreshTokenRequest": {
+		"title": "RefreshTokenRequest",
+		"example": {
+		  "email": "akhmad.maknur@gmail.com",
+		  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraG1hZC5tYWtudXJAZ21haWwxLmNvbSIsInVzZXJfaWQiOjIsImlhdCI6MTY2MDg4Nzk1MiwiZXhwIjoxNjYwODkxNTUyfQ.EvFi8la6yv84YsENWRZQPvJMMA8zfrseGj7B8FLuD0I"
+		},
+		"type": "object",
+		"properties": {
+		  "email": {
+			"type": "string"
+		  },
+		  "token": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "email",
+		  "token"
+		]
+	  },
+	  "LoginRequest": {
+		"title": "LoginRequest",
+		"example": {
+		  "user_name": "admin1234",
+		  "password": "testing"
+		},
+		"type": "object",
+		"properties": {
+		  "user_name": {
+			"type": "string"
+		  },
+		  "password": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "user_name",
+		  "password"
+		]
+	  },
+	  "RegisterRequest": {
+		"title": "RegisterRequest",
+		"example": {
+		  "role": "ADMIN",
+		  "email": "akhmad.maknur@gmail.com",
+		  "password": "qwerty1234",
+		  "user_name": "admin12345",
+		  "name": "Akhmad Maknur Member",
+		  "no_telephone": "082394717431"
+		},
+		"type": "object",
+		"properties": {
+		  "role": {
+			"type": "string"
+		  },
+		  "email": {
+			"type": "string"
+		  },
+		  "password": {
+			"type": "string"
+		  },
+		  "user_name": {
+			"type": "string"
+		  },
+		  "name": {
+			"type": "string"
+		  },
+		  "no_telephone": {
+			"type": "string"
+		  }
+		},
+		"required": [
+		  "role",
+		  "email",
+		  "password",
+		  "user_name",
+		  "name",
+		  "no_telephone"
+		]
+	  }
+	},
+	"tags": [
+	  {
+		"name": "Order"
+	  },
+	  {
+		"name": "Item"
+	  },
+	  {
+		"name": "User"
+	  },
+	  {
+		"name": "Promo"
+	  },
+	  {
+		"name": "Items"
+	  },
+	  {
+		"name": "Cart"
+	  },
+	  {
+		"name": "Misc",
+		"description": ""
+	  }
+	]
+  }
