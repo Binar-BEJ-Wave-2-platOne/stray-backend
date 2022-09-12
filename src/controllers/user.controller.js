@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt')
+
 const { Users, Roles } = require('../models')
 
 const getAllUsers = async (req, res, next) => {
@@ -58,10 +60,7 @@ const updateUser = async (req, res, next) => {
     let id = req.params.id
     if (req.role === 'MEMBER') {
         id = req.id_users
-        delete req.body.role
     }
-    delete req.body.user_name
-    delete req.body.password
 
     try {
         if (req.body.role) {
@@ -75,6 +74,10 @@ const updateUser = async (req, res, next) => {
             }
             delete req.body.role
             req.body.role_id = findOne.id
+        }
+
+        if (req.body.password) {
+            req.body.password = await bcrypt.hash(req.body.password, 10)
         }
 
         const findOne = await Users.findByPk(id, {
