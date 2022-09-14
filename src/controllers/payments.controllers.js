@@ -2,7 +2,7 @@ const { response } = require('express')
 const { verify } = require('jsonwebtoken')
 const { sequelize, Orders, Payments } = require('../models')
 
-const postPayments = async (req, res, next) => {
+const postPayments = async(req, res, next) => {
     try {
         const { id_orders, payment_date, payment_type, amount } = req.body
         const [isOrderExist] = await Promise.all([
@@ -14,12 +14,19 @@ const postPayments = async (req, res, next) => {
                 message: 'Order not exist',
             })
         }
+        if (isOrderExist.order_status === 'Paid') {
+            throw {
+                code: 404,
+                message: 'YOUR ORDERS HAVE PAID',
+            }
+        }
         try {
+
             const dataPayment = {
                 id_orders: req.body.id_orders,
-                payment_date: req.body.payment_date,
+                payment_date: Date.now(),
                 payment_type: req.body.payment_type,
-                amount: req.body.amount,
+                amount: isOrderExist.total_price,
                 payment_status: 'PAID',
             }
 
@@ -32,6 +39,11 @@ const postPayments = async (req, res, next) => {
                 .catch((err) => {
                     res.status(500).send({ message: err.message })
                 })
+            await Orders.update({
+                order_status: "Paid"
+            }, {
+                where: { id: req.body.id_orders, }
+            })
         } catch (error) {
             console.log('error', error)
             next(error)
@@ -41,7 +53,7 @@ const postPayments = async (req, res, next) => {
     }
 }
 
-const updatePayments = async (req, res, next) => {
+const updatePayments = async(req, res, next) => {
     const { id } = req.params
 
     try {
@@ -61,7 +73,7 @@ const updatePayments = async (req, res, next) => {
     }
 }
 
-const deletePayments = async (req, res, next) => {
+const deletePayments = async(req, res, next) => {
     const { id } = req.params
 
     try {

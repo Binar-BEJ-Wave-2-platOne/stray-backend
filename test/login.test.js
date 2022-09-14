@@ -2,7 +2,7 @@ const request = require('supertest')
 const { app } = require('../index')
 
 describe('auth', () => {
-    it('Should be 200 if username and password right', async () => {
+    it('Should be 200 if username and password right', async() => {
         return request(app)
             .post('/api/v1/auth/login')
             .send({
@@ -16,7 +16,7 @@ describe('auth', () => {
             })
     })
 
-    it('Should be 404 if username and password wrong', async () => {
+    it('Should be 404 if username and password wrong', async() => {
         return request(app)
             .post('/api/v1/auth/login')
             .send({
@@ -29,7 +29,7 @@ describe('auth', () => {
             })
     })
 
-    it('Should be 404 and message User not exist', async () => {
+    it('Should be 404 and message User not exist', async() => {
         return request(app)
             .post('/api/v1/auth/login')
             .send({
@@ -45,7 +45,7 @@ describe('auth', () => {
             })
     })
 
-    it('Should be 404 and message Password not valid', async () => {
+    it('Should be 404 and message Password not valid', async() => {
         return request(app)
             .post('/api/v1/auth/login')
             .send({
@@ -61,7 +61,7 @@ describe('auth', () => {
             })
     })
 
-    it('Should be 401 and message Pending account, Please verify Your email', async () => {
+    it('Should be 401 and message Pending account, Please verify Your email', async() => {
         return request(app)
             .post('/api/v1/auth/login')
             .send({

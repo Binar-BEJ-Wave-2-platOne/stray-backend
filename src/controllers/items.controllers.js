@@ -1,6 +1,6 @@
 const { sequelize, Items } = require('../models')
 
-const getItems = async (req, res, next) => {
+const getItems = async(req, res, next) => {
     try {
         const resItems = await Items.findAll()
         if (resItems) {
@@ -16,7 +16,7 @@ const getItems = async (req, res, next) => {
     }
 }
 
-const postItems = async (req, res, next) => {
+const postItems = async(req, res, next) => {
     const {
         item_name,
         item_category,
@@ -27,20 +27,17 @@ const postItems = async (req, res, next) => {
     } = req.body
 
     try {
-        await sequelize.transaction(async (trx) => {
-            await Items.create(
-                {
-                    item_name,
-                    item_category,
-                    item_quantity,
-                    item_price,
-                    item_image,
-                    item_status,
-                },
-                {
-                    transaction: trx,
-                }
-            )
+        await sequelize.transaction(async(trx) => {
+            await Items.create({
+                item_name,
+                item_category,
+                item_quantity,
+                item_price,
+                item_image,
+                item_status,
+            }, {
+                transaction: trx,
+            })
         })
 
         return res.status(201).json({
@@ -51,7 +48,7 @@ const postItems = async (req, res, next) => {
     }
 }
 
-const getItemsId = async (req, res, next) => {
+const getItemsId = async(req, res, next) => {
     const { id } = req.params
 
     try {
@@ -69,7 +66,7 @@ const getItemsId = async (req, res, next) => {
     }
 }
 
-const updateItems = async (req, res, next) => {
+const updateItems = async(req, res, next) => {
     const { id } = req.params
 
     try {
@@ -97,7 +94,7 @@ const updateItems = async (req, res, next) => {
     }
 }
 
-const deleteItems = async (req, res, next) => {
+const deleteItems = async(req, res, next) => {
     const { id } = req.params
 
     try {

@@ -12,6 +12,7 @@ const memberUser = require('./member/user.routes')
 const memberItems = require('./member/items.routes')
 const memberOrders = require('./member/orders.routes')
 const memberCart = require('./member/cart.routes')
+const memberpayment = require('./member/payments.routes')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -33,6 +34,7 @@ app.group('/api/v1/member', (router) => {
     router.use('/items', memberItems)
     router.use('/orders', memberOrders)
     router.use('/carts', memberCart)
+    router.use('/payment', memberpayment)
 })
 
 module.exports = app
