@@ -16,6 +16,7 @@ const postPayments = async (req, res, next) => {
 
         if (!isOrderExist) {
             return res.status(404).json({
+<<<<<<< Updated upstream
               message: 'Order not exist'
             });
           }
@@ -27,8 +28,15 @@ const postPayments = async (req, res, next) => {
             amount: req.body.amount,
             payment_status : 'PAID'
             } 
-            
-      
+        }
+        if (isOrderExist.order_status === 'Paid') {
+            throw {
+                code: 400,
+                message: 'YOUR ORDERS HAVE PAID',
+            }
+        }
+        try {
+>>>>>>> Stashed changes
 
             await Payments.create(dataPayment
             
