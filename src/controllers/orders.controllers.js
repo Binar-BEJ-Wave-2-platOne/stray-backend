@@ -1,53 +1,166 @@
-const { verify } = require('jsonwebtoken')
-const { Orders, Users, Promos } = require('../models/index')
+const { Orders, OrderItems, Promos, Items } = require('../models/index')
+const { sequelize } = require('../models')
 
-const CreateOrder = async(req, res, next) => {
+const getAllOrder = async (req, res, next) => {
     try {
-        const bodies = req.body
-        const userExist = await Users.findOne({
-            where: {
-                id: bodies.id_users,
-            },
-            attributes: ['name', 'id']
-        })
+        let findAll = []
+        if (req.role === 'MEMBER') {
+            findAll = await Orders.findAll({
+                include: [
+                    {
+                        model: OrderItems,
+                        as: 'order_items',
+                    },
+                ],
+                where: {
+                    id_users: req.id_users,
+                },
+            })
+        } else {
+            findAll = await Orders.findAll({
+                include: [
+                    {
+                        model: OrderItems,
+                        as: 'order_items',
+                    },
+                ],
+            })
+        }
 
-        if (!userExist) {
+        if (!findAll) {
             throw {
                 code: 404,
-                message: "USER TIDAK ADA "
+                message: 'Order is empty',
             }
         }
 
-        const promoExist = Promos.findOne({
-            where: {
-                id: bodies.id_promo,
-            }
+        return res.status(200).json({
+            message: 'success get orders',
+            data: findAll,
         })
-        if (!promoExist) {
-            throw {
-                code: 404,
-                message: "PROMO TIDAK BERLAKU"
-            }
-        }
-
-        const order = await Orders.create({
-            invoice: Date.now(),
-            id_users: userExist.id,
-            id_promo: promoExist.id,
-            no_invoice: Date.now(),
-            customer_name: userExist.name,
-            date_order: Date.now(),
-            sender_addres: bodies.sender_addres,
-            receiver_address: bodies.receiver_address,
-            total_price: bodies.total_price,
-            order_status: "BELUM DI BAYAR"
-        })
-
-
-
     } catch (error) {
         next(error)
     }
 }
 
-module.exports = { CreateOrder }
+const createOrder = async (req, res, next) => {
+    try {
+        const { ...createOrder } = req.body
+        const itemResult = []
+        let findPromo = false
+        let orderAmount = 0
+
+        for (const result of req.body.items) {
+            const { id_item, item_quantity, item_name, item_price } = result
+            const findItem = await Items.findByPk(id_item)
+            if (findItem) {
+                const itemData = {
+                    id_item: id_item,
+                    item_name: findItem.item_name,
+                    item_quantity: item_quantity,
+                    item_price: findItem.item_price,
+                }
+                itemResult.push(itemData)
+                orderAmount += findItem.item_price * item_quantity
+            }
+        }
+
+        if (req.body.promo) {
+            findPromo = await Promos.findOne({
+                where: {
+                    promo_code: req.body.promo,
+                },
+            })
+
+            if (!findPromo) {
+                throw {
+                    code: 404,
+                    message: 'promo not founds',
+                }
+            }
+            orderAmount -= findPromo.promo_amount
+        }
+
+        await sequelize.transaction(async (t) => {
+            insertOrder = await Orders.create(
+                {
+                    ...createOrder,
+                    id_users: req.id_users,
+                    id_promo: findPromo?.id,
+                    no_invoice: `INV-${Date.now()}`,
+                    date_order: Date.now(),
+                    total_price: orderAmount,
+                    order_status: 'Pending',
+                },
+                {
+                    transaction: t,
+                }
+            )
+            await OrderItems.bulkCreate(
+                itemResult.map((item) => {
+                    return {
+                        id_order: insertOrder.id,
+                        id_item: item.id_item,
+                        item_name: item.item_name,
+                        item_price: item.item_price,
+                        item_quantity: item.item_quantity,
+                    }
+                }),
+                {
+                    transaction: t,
+                }
+            )
+        })
+        return res.status(201).json({
+            message: 'Create order has successful',
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const updateOrder = async (req, res, next) => {
+    try {
+        const id = req.params.id
+
+        const findOrder = await Orders.findByPk(id)
+        if (!findOrder) {
+            throw {
+                code: 404,
+                message: 'Order not found',
+            }
+        }
+
+        await findOrder.update(req.body)
+
+        return res.status(200).json({
+            message: 'Update order successful',
+            data: findOrder,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const deleteOrder = async (res, req, next) => {
+    try {
+        const id = req.params.id
+        const findOrder = await Orders.findByPk(id)
+
+        if (!findOrder) {
+            return res.status(404).json({
+                message: 'Order not found',
+            })
+        }
+
+        await findOrder.destroy()
+
+        return res.status(200).json({
+            message: 'Delete order successful',
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports = { createOrder, updateOrder, deleteOrder, getAllOrder }

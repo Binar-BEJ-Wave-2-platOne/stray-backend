@@ -4,38 +4,36 @@ const sequelize = require('./sequelize')
 
 class Orders extends Sequelize.Model {}
 
-Orders.init({
+Orders.init(
+    {
         id: {
             type: Sequelize.DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             unique: true,
-            allowNull: false
+            allowNull: false,
         },
         id_users: {
             type: Sequelize.DataTypes.INTEGER,
             references: {
                 model: 'users',
-                key: 'id'
+                key: 'id',
             },
             onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
-
+            onUpdate: 'CASCADE',
         },
 
         id_promo: {
             type: Sequelize.DataTypes.INTEGER,
             references: {
                 model: 'promos',
-                key: 'id'
+                key: 'id',
             },
             onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
+            onUpdate: 'CASCADE',
         },
         no_invoice: {
-
             type: Sequelize.DataTypes.STRING,
-
         },
         customer_name: {
             type: Sequelize.DataTypes.STRING,
@@ -55,16 +53,16 @@ Orders.init({
         },
         order_status: {
             type: Sequelize.DataTypes.ENUM,
-            values: ['BELUM DI BAYAR', 'SUDAH DI BAYAR']
+            values: ['Pending', 'Paid', 'Cancel'],
         },
-    }, {
+    },
+    {
         sequelize: sequelize,
         timestamps: true,
         underscored: true,
         paranoid: true,
         freezeTableName: true,
-        tableName: 'orders'
+        tableName: 'orders',
     }
-
 )
 module.exports = Orders
