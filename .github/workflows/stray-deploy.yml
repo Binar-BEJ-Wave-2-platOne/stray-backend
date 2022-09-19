@@ -1,0 +1,14 @@
+name: Deploy stray App
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  deploy:
+    name: Deploy stray
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout stray
+        uses: actions/checkout@v2
