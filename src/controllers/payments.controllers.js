@@ -11,36 +11,13 @@ const postPayments = async(req, res, next) => {
 
         if (!isOrderExist) {
             return res.status(404).json({
-
               message: 'Order not exist'
             });
-          }
-          try{ 
-            const dataPayment={
-            id_orders: req.body.id_orders,
-            payment_date: req.body.payment_date,
-            payment_type: req.body.payment_type,
-            amount: req.body.amount,
-            payment_status : 'PAID'
-            } 
         }
         if (isOrderExist.order_status === 'Paid') {
             throw {
                 code: 400,
                 message: 'YOUR ORDERS HAVE PAID',
-            }
-        }
-        try {
-
-            await Payments.create(dataPayment
-            
-            )
-            .then(data => {res.status(201).json({
-                message: 'PAID'
-            })})
-            .catch(err => {res.status(500)
-            .send({message: err.message})})
-
             }
         }
         try {
