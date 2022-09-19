@@ -8,7 +8,7 @@ const transport = nodemailer.createTransport({
     },
 })
 
-const sendConfirmEmail = (name, email, confirmationCode) => {
+const sendConfirmEmail = (name, email, confirmationCode, req) => {
     var hostname = req.headers.host;
 
     transport

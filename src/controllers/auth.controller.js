@@ -69,7 +69,7 @@ const register = async (req, res, next) => {
             })
 
             if (result) {
-                sendEmail(name, email, generateToken)
+                sendEmail(name, email, generateToken, req)
 
                 return res.status(201).json({
                     message:
