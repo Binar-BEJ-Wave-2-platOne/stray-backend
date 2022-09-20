@@ -11,12 +11,12 @@ const postPayments = async(req, res, next) => {
 
         if (!isOrderExist) {
             return res.status(404).json({
-                message: 'Order not exist',
-            })
+              message: 'Order not exist'
+            });
         }
         if (isOrderExist.order_status === 'Paid') {
             throw {
-                code: 404,
+                code: 400,
                 message: 'YOUR ORDERS HAVE PAID',
             }
         }

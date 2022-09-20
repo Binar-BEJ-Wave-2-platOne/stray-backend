@@ -1,5 +1,5 @@
 require('dotenv').config()
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const crypto = require('crypto')
 const { Users, Roles, Verifikasi, sequelize } = require('../models')
 const sendEmail = require('../helpers/email.helper')
@@ -69,7 +69,7 @@ const register = async (req, res, next) => {
             })
 
             if (result) {
-                sendEmail(name, email, generateToken)
+                sendEmail(name, email, generateToken, req)
 
                 return res.status(201).json({
                     message:
