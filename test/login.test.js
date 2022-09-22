@@ -7,7 +7,7 @@ describe('auth', () => {
             .post('/api/v1/auth/login')
             .send({
                 user_name: 'admin12345',
-                password: 'qwerty123',
+                password: 'qwerty1234',
             })
             .expect('Content-Type', /json/)
             .then((response) => {
@@ -65,8 +65,8 @@ describe('auth', () => {
         return request(app)
             .post('/api/v1/auth/login')
             .send({
-                user_name: 'admin1234',
-                password: 'qwerty123',
+                user_name: 'admin123456',
+                password: 'qwerty1234',
             })
             .expect('Content-Type', /json/)
             .then((response) => {
