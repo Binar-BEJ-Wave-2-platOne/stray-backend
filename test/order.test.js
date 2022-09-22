@@ -1,13 +1,32 @@
 const request = require('supertest')
+const { password } = require('../database/config/config')
 const { app } = require('../index')
 const { Items } = require('../src/models')
 const { response } = require('../src/routes/index.routes')
+
+
+var token = null
+
+
+beforeAll(async() => {
+    return request(app)
+        .post('api/v1/auth/login')
+        .send({
+            user_name: 'admin12345',
+            password: 'qwety1234'
+        })
+        .expect('Content-Type', /json/)
+        .then((response) => {
+            token = response.body.data.token;
+        })
+})
 
 
 describe('member/orders', () => {
     it('should be order successful created', async() => {
         return request(app)
             .post('/api/v1/member/orders')
+            .set('Authorization', 'Bearer ' + token)
             .send({
                 promo: "awad",
                 customer_name: "samsol",
