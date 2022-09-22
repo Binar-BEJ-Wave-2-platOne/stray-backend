@@ -19,7 +19,7 @@ beforeAll(async () => {
 describe('member/payments', () => {
     it('should be payment successful created', async() => {
         return request(app)
-            .post('/api/v1/member/payments')
+            .post('/api/v1/member/payment')
             .set('Authorization', 'Bearer ' + token)
             .send({
                 id_orders: "1",
@@ -36,7 +36,7 @@ describe('member/payments', () => {
 
     it('should be payment invalid because invalid id_orders', async() => {
         return request(app)
-            .post('/api/v1/member/payments')
+            .post('/api/v1/member/payment')
             .set('Authorization', 'Bearer ' + token)
             .send({
                 id_orders: "100",
@@ -53,7 +53,7 @@ describe('member/payments', () => {
 
     it('should be payment invalid because paid', async() => {
         return request(app)
-            .post('/api/v1/member/payments')
+            .post('/api/v1/member/payment')
             .set('Authorization', 'Bearer ' + token)
             .send({
                 id_orders: "100",
