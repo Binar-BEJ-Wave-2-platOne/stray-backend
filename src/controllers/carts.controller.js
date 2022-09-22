@@ -27,7 +27,7 @@ const createCart = async (req, res, next) => {
         })
 
         return res.status(201).json({
-            message: 'Create cart successful',
+            message: 'Create cart has successful',
         })
     } catch (error) {
         next(error)
