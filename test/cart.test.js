@@ -2,10 +2,10 @@ const request = require('supertest')
 const { app } = require('../index')
 
 var token = null
-
 beforeAll(async () => {
     return request(app)
         .post('/api/v1/auth/login')
+        .set('Authorization', 'Bearer ' + token)
         .send({
             user_name: 'admin12345',
             password: 'qwerty1234',
@@ -15,6 +15,7 @@ beforeAll(async () => {
             token = response.body.data.token;
         })
 })
+
 
 describe('member/cart', () => {
     it('should be cart successful created', async() => {

@@ -1,13 +1,26 @@
 const request = require('supertest')
 const { app } = require('../index')
-const { Items } = require('../src/models')
-const { response } = require('../src/routes/index.routes')
+
+var token = null
+beforeAll(async () => {
+    return request(app)
+        .post('/api/v1/auth/login')
+        .send({
+            user_name: 'admin12345',
+            password: 'qwerty1234',
+        })
+        .expect('Content-Type', /json/)
+        .then((response) => {
+            token = response.body.data.token;
+        })
+})
 
 
-describe('admin/payments', () => {
+describe('member/payments', () => {
     it('should be payment successful created', async() => {
         return request(app)
-            .post('/api/v1/admin/payments')
+            .post('/api/v1/member/payment')
+            .set('Authorization', 'Bearer ' + token)
             .send({
                 id_orders: "1",
                 payment_date: "2022-08-29",
@@ -21,12 +34,10 @@ describe('admin/payments', () => {
             })
     })
 
-})
-
-describe('admin/payments', () => {
     it('should be payment invalid because invalid id_orders', async() => {
         return request(app)
-            .post('/api/v1/admin/payments')
+            .post('/api/v1/member/payment')
+            .set('Authorization', 'Bearer ' + token)
             .send({
                 id_orders: "100",
                 payment_date: "2022-08-29",
@@ -40,12 +51,10 @@ describe('admin/payments', () => {
             })
     })
 
-})
-
-describe('admin/payments', () => {
     it('should be payment invalid because paid', async() => {
         return request(app)
-            .post('/api/v1/admin/payments')
+            .post('/api/v1/member/payment')
+            .set('Authorization', 'Bearer ' + token)
             .send({
                 id_orders: "100",
                 payment_date: "2022-08-29",
@@ -60,4 +69,8 @@ describe('admin/payments', () => {
     })
 
 })
+
+
+
+
 

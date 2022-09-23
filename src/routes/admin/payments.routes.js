@@ -7,11 +7,12 @@
 const router = require('express').Router();
 
 const {postPayments, updatePayments, deletePayments} = require('../controllers/payments.controllers');
+const { isTokenValid } = require('../../middlewares/verifyToken.middleware')
+const validation = require('../../middlewares/validation.middleware')
+const paymentsSchema = require('../../schemas/payments.schema')
 
-
-router.post('/', postPayments);
-// router.post('*', postPayments);
-router.put('/:id', updatePayments);
-router.delete('/:id', deletePayments)
+router.post('/', isTokenValid('MEMBER'), postPayments)
+router.put('/:id', isTokenValid('MEMBER'), updatePayments)
+router.delete('/:id', isTokenValid('MEMBER'), deletePayments)
 
 module.exports = router;
