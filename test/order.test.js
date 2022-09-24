@@ -10,7 +10,7 @@ var token = null
 
 beforeAll(async() => {
     return request(app)
-        .post('api/v1/auth/login')
+        .post('/api/v1/auth/login')
         .send({
             user_name: 'admin12345',
             password: 'qwety1234'

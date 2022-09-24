@@ -1,6 +1,6 @@
 const imagekit = require('../helpers/imagekit.helper')
 
-const uploadFile = async (req, res, next) => {
+const uploadFile = async(req, res, next) => {
     try {
         const resp = await imagekit.upload({
             file: req.file.buffer,

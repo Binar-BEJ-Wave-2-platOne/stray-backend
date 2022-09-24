@@ -1,6 +1,6 @@
 const { sequelize, OrderItems } = require('../models')
 
-const getOrderItems = async (req, res, next) => {
+const getOrderItems = async(req, res, next) => {
     console.log('getORDERITEMS', req)
 
     try {
@@ -18,25 +18,22 @@ const getOrderItems = async (req, res, next) => {
     }
 }
 
-const postOrderItems = async (req, res, next) => {
+const postOrderItems = async(req, res, next) => {
     console.log('postORDERITEMS', req)
     const { id_items, id_order, item_name, item_quantity, item_price } =
-        req.body
+    req.body
 
     try {
-        await sequelize.transaction(async (trx) => {
-            await OrderItems.create(
-                {
-                    id_items,
-                    id_order,
-                    item_name,
-                    item_quantity,
-                    item_price,
-                },
-                {
-                    transaction: trx,
-                }
-            )
+        await sequelize.transaction(async(trx) => {
+            await OrderItems.create({
+                id_items,
+                id_order,
+                item_name,
+                item_quantity,
+                item_price,
+            }, {
+                transaction: trx,
+            })
         })
 
         return res.status(201).json({
@@ -47,7 +44,7 @@ const postOrderItems = async (req, res, next) => {
     }
 }
 
-const getOrderItemsId = async (req, res, next) => {
+const getOrderItemsId = async(req, res, next) => {
     console.log('getOrderITEMSbyId', req.params)
     const { id } = req.params
 
@@ -66,7 +63,7 @@ const getOrderItemsId = async (req, res, next) => {
     }
 }
 
-const updateOrderItems = async (req, res, next) => {
+const updateOrderItems = async(req, res, next) => {
     console.log('getOrderITEMS', req.params)
     const { id } = req.params
 
@@ -87,7 +84,7 @@ const updateOrderItems = async (req, res, next) => {
     }
 }
 
-const deleteOrderItems = async (req, res, next) => {
+const deleteOrderItems = async(req, res, next) => {
     console.log('getITEMS', req.params)
     const { id } = req.params
 
