@@ -2,6 +2,7 @@ const {
     createOrder,
     updateOrder,
     getAllOrder,
+    deleteOrder,
 } = require('../../controllers/orders.controllers')
 
 const validation = require('../../middlewares/validation.middleware')
@@ -18,5 +19,8 @@ router.patch(
     validation(orderUpdateSchema),
     updateOrder
 )
+router.delete('/:id', isTokenValid('MEMBER'), deleteOrder)
+
+
 
 module.exports = router

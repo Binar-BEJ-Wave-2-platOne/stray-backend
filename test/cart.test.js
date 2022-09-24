@@ -2,13 +2,13 @@ const request = require('supertest')
 const { app } = require('../index')
 
 var token = null
-beforeAll(async () => {
+beforeAll(async() => {
     return request(app)
         .post('/api/v1/auth/login')
         .set('Authorization', 'Bearer ' + token)
         .send({
-            user_name: 'admin12345',
-            password: 'qwerty1234',
+            user_name: 'member123',
+            password: "member123"
         })
         .expect('Content-Type', /json/)
         .then((response) => {
@@ -23,7 +23,7 @@ describe('member/cart', () => {
             .post('/api/v1/member/carts')
             .set('Authorization', 'Bearer ' + token)
             .send({
-                id_item: 1,
+                id_item: 2,
                 quantity: 1
             })
             .expect('Content-Type', /json/)
@@ -33,7 +33,7 @@ describe('member/cart', () => {
             })
     })
 
-    it('should be return 200 if success get all data cart', async () => {
+    it('should be return 200 if success get all data cart', async() => {
         return request(app)
             .get('/api/v1/member/carts')
             .set('Authorization', 'Bearer ' + token)

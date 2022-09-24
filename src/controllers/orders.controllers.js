@@ -63,6 +63,12 @@ const createOrder = async (req, res, next) => {
                 itemResult.push(itemData)
                 orderAmount += findItem.item_price * item_quantity
             }
+            else{
+                throw {
+                    code: 404,
+                    message: 'Item not found',
+                }
+            }
         }
 
         if (req.body.promo) {
@@ -142,10 +148,13 @@ const updateOrder = async (req, res, next) => {
     }
 }
 
-const deleteOrder = async (res, req, next) => {
+const deleteOrder = async (req, res, next) => {
     try {
         const id = req.params.id
-        const findOrder = await Orders.findByPk(id)
+        
+        const findOrder = await Orders.findAll({
+            where: { id: id },
+        })
 
         if (!findOrder) {
             return res.status(404).json({
@@ -153,7 +162,11 @@ const deleteOrder = async (res, req, next) => {
             })
         }
 
-        await findOrder.destroy()
+        await Orders.destroy({
+            where: {
+                id: id,
+            },
+        })
 
         return res.status(200).json({
             message: 'Delete order successful',
