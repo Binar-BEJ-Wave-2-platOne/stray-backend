@@ -6,7 +6,7 @@ const getPromos = async (req, res, next) => {
         const resPromos = await Promos.findAll()
         if (resPromos.length > 0) {
             return res.status(200).json({
-                message: 'success get promos',
+                message: 'Success get all promos',
                 data: resPromos,
             })
         }
@@ -26,7 +26,7 @@ const getaPromo = async (req, res, next) => {
         const findOne = await Promos.findByPk(req.params.id)
         if (findOne) {
             return res.status(200).json({
-                message: 'success get promo',
+                message: 'Success get promo',
                 data: findOne,
             })
         }
@@ -68,7 +68,7 @@ const createPromos = async (req, res, next) => {
         })
 
         return res.status(201).json({
-            message: 'Success create promos',
+            message: 'Success create promo',
         })
     } catch (error) {
         next(error)
