@@ -1,4 +1,4 @@
-const { Orders, OrderItems, Promos, Items } = require('../models/index')
+const { Orders, OrderItems, Promos, Items, Carts, Payments } = require('../models/index')
 const { sequelize } = require('../models')
 
 const getAllOrder = async (req, res, next) => {
@@ -50,18 +50,37 @@ const createOrder = async (req, res, next) => {
         let findPromo = false
         let orderAmount = 0
 
-        for (const result of req.body.items) {
-            const { id_item, item_quantity, item_name, item_price } = result
+        const findMyCart = await Carts.findAll({
+            include: [
+                {
+                    model: Items,
+                    as: 'cart',
+                },
+            ],
+            where:{
+                id_users: req.id_users, 
+            }
+        })
+
+        if (findMyCart.length == 0) {
+            throw {
+                code: 404,
+                message: 'Cart is empty'
+            }
+        }
+
+        for (const result of findMyCart) {
+            const { id_item, name, quantity } = result
             const findItem = await Items.findByPk(id_item)
             if (findItem) {
                 const itemData = {
                     id_item: id_item,
-                    item_name: findItem.item_name,
-                    item_quantity: item_quantity,
-                    item_price: findItem.item_price,
+                    item_name: name,
+                    item_quantity: quantity,
+                    item_price: result.cart.item_price,
                 }
                 itemResult.push(itemData)
-                orderAmount += findItem.item_price * item_quantity
+                orderAmount += result.cart.item_price * quantity
             }
             else{
                 throw {
@@ -116,6 +135,12 @@ const createOrder = async (req, res, next) => {
                     transaction: t,
                 }
             )
+
+            await Carts.destroy({
+                where: {
+                    id_users: req.id_users
+                },
+            })
         })
         return res.status(201).json({
             message: 'Create order has successful',
@@ -138,6 +163,14 @@ const updateOrder = async (req, res, next) => {
         }
 
         await findOrder.update(req.body)
+
+        if (req.body.order_status == 'Cancel') {
+            await Payments.destroy({
+                where: {
+                    id_orders: id
+                },
+            })
+        }
 
         return res.status(200).json({
             message: 'Update order successful',

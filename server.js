@@ -9,7 +9,7 @@ const io = socketio(server);
 io.on('connection', (socket) => {
     console.log('a user connected');
 
-    socket.on('chat message', (msg) => {
+    socket.on('message', (msg) => {
         io.emit('chat', msg);
     })
     socket.on('chat', (msg) => {
@@ -18,6 +18,4 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('a user disconected');
     })
-
-
 })
