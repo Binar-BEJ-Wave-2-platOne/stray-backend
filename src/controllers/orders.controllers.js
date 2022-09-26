@@ -30,7 +30,7 @@ const getAllOrder = async (req, res, next) => {
         if (!findAll) {
             throw {
                 code: 404,
-                message: 'Order is empty',
+                message: 'Order is empty ',
             }
         }
 
