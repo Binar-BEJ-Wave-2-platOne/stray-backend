@@ -53,7 +53,7 @@ describe('member/orders', () => {
                 sender_addres: "jl. keramat",
                 receiver_addres: "jl.mansyur",
                 items: [{
-                    id_item: 200,
+                    id_item: 2002,
                     item_quantity: 2,
                 }],
             })
