@@ -4,7 +4,7 @@ const { sequelize, Orders, Payments } = require('../models')
 
 const postPayments = async(req, res, next) => {
     try {
-        const { id_orders, payment_date, payment_type, amount } = req.body
+        const { id_orders, payment_type, amount } = req.body
         const [isOrderExist] = await Promise.all([
             Orders.findOne({ where: { id: id_orders } }),
         ])
@@ -20,12 +20,20 @@ const postPayments = async(req, res, next) => {
                 message: 'YOUR ORDERS HAVE PAID',
             }
         }
+
+        if(Number(isOrderExist.total_price) !== Number(amount)) {
+            throw {
+                code: 400,
+                message: 'Your Amount not suit'
+            }
+        }
+
         try {
 
             const dataPayment = {
-                id_orders: req.body.id_orders,
+                id_orders: id_orders,
                 payment_date: Date.now(),
-                payment_type: req.body.payment_type,
+                payment_type: payment_type,
                 amount: isOrderExist.total_price,
                 payment_status: 'PAID',
             }
@@ -33,7 +41,7 @@ const postPayments = async(req, res, next) => {
             await Payments.create(dataPayment)
                 .then((data) => {
                     res.status(201).json({
-                        message: 'PAID',
+                        message: 'Your Payment Has Successful',
                     })
                 })
                 .catch((err) => {
@@ -42,7 +50,7 @@ const postPayments = async(req, res, next) => {
             await Orders.update({
                 order_status: "Paid"
             }, {
-                where: { id: req.body.id_orders, }
+                where: { id: id_orders, }
             })
         } catch (error) {
             console.log('error', error)
