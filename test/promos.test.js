@@ -7,8 +7,8 @@ beforeAll(async () => {
     return request(app)
         .post('api/v1/admin/promos')
         .send({
-            user_name: 'admin1',
-            password: 'qwerty123',
+            user_name: 'admin123',
+            password: 'admin123',
         })
         .expect('Content-Type', /json/)
         .then((response) => {
@@ -17,37 +17,37 @@ beforeAll(async () => {
 })
 
 describe('admin/promos', () => {
-    it('Should be 200 if id found', async () => {
+    it('Should be 200 if promos id found', async () => {
         return request(app)
             .get('/api/v1/admin/promos')
             .set('Authorization', 'Bearer ' + token)
             .send({
-                id: ['1', '2', '3']
+                id: ['1', '2']
             })
             .expect('Content-Type', /json/)
             .then((response) => {
                 expect(response.status).toBe(200)
-                expect(response.body.message).toBe('success get all promos')
+                expect(response.body.message).toBe('Success get all promos')
             })
     })
 
-    it('Should be 404 if id not found', async () => {
+    it('Should be 404 if promos id not found', async () => {
         return request(app)
             .get('/api/v1/admin/promos')
             .set('Authorization', 'Bearer ' + token)
             .send({
-                id: ['100', '101', '102']
+                id: '0'
             })
             .expect('Content-Type', /json/)
             .then((response) => {
                 expect(response.status).toBe(404)
-                expect(response.body.message).toBe('promos not found')
+                expect(response.body.message).toBe('Promos not found')
             })
     })
 })
 
 describe('admin/promos', () => {
-    it('should be 200 if id found', async () => {
+    it('should be 200 if promos id found', async () => {
         return request(app)
             .get('/api/v1/admin/promos')
             .set('Authorization', 'Bearer ' + token)
@@ -57,21 +57,21 @@ describe('admin/promos', () => {
             .expect('Content-Type', /json/)
             .then((response) => {
                 expect(response.status).toBe(200)
-                expect(response.body.message).toBe('success get promo')
+                expect(response.body.message).toBe('Success get promo')
             })
     })
 
-    it('Should be 404 if id not found', async () => {
+    it('Should be 404 if promos id not found', async () => {
         return request(app)
             .get('/api/v1/admin/promos')
             .set('Authorization', 'Bearer ' + token)
             .send({
-                id: '1000'
+                id: '0'
             })
             .expect('Content-Type', /json/)
             .then((response) => {
                 expect(response.status).toBe(404)
-                expect(response.body.message).toBe('promo not found')
+                expect(response.body.message).toBe('Promo not found')
             })
     })
 })
@@ -82,15 +82,15 @@ describe('admin/promos', () => {
             .post('/api/v1/admin/promos')
             .set('Authorization', 'Bearer ' + token)
             .send({
-                promo_name: 'PROMO HARI KEMERDEKAAN',
-                promo_category: 'DISKON ONGKIR',
-                promo_code: 'MERDEKA',
-                promo_amount: '17000'
+                promo_name: 'Promo hari kemerdekaan',
+                promo_category: 'Discount',
+                promo_code: 'MDK',
+                promo_amount: '5000'
             })
             .expect('Content-Type', /json/)
             .then((response) => {
                 expect(response.status).toBe(201)
-                expect(response.body.message).toBe('Success create promos')
+                expect(response.body.message).toBe('Success create promo')
             })
     })
 
@@ -99,10 +99,10 @@ describe('admin/promos', () => {
             .post('/api/v1/admin/promos')
             .set('Authorization', 'Bearer ' + token)
             .send({
-                promo_name: 'PROMO HARI KEMERDEKAAN',
-                promo_category: 'DISKON ONGKIR',
-                promo_code: 'MERDEKA',
-                promo_amount: '17000'
+                promo_name: 'Promo hari kemerdekaan',
+                promo_category: 'Discount',
+                promo_code: 'MDK',
+                promo_amount: '5000'
             })
             .expect('Content-Type', /json/)
             .then((response) => {
@@ -113,22 +113,77 @@ describe('admin/promos', () => {
 })
 
 describe('admin/promos', () => {
-    it('Should be 200 if id promo is found', async() => {
+    it('Should be 200 if promo id is found', async() => {
         return request(app)
             .patch('api/v1/admin/promos')
             .set('Authorization', 'Bearer ' + token)
             .send({
                 id: '2',
-                promo_code: 'HARIRAYA'
+                promo_code: 'Fitri'
             })
             .expect('Content-Type', /json/)
             .then((response) => {
-                expect(response.status).toBe(201)
+                expect(response.status).toBe(200)
                 expect(response.body.message).toBe('Update promo success')
             })
     })
 
-    it('Should be 409 if code promo is updated to existing code', async() => {
-        
+    it('Should be 409 if promo code is updated to existing promo code', async() => {
+        return request(app)
+            .patch('api/v1/admin/promos')
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                id: '2',
+                promo_code: 'MDK'
+            })
+            .expect('Content-Type', /json/)
+            .then((response) => {
+                expect(response.status).toBe(409)
+                expect(response.body.message).toBe('Promo code is exist')
+            })
+    })
+
+    it('Should be 404 if promo id is not found', async() => {
+        return request(app)
+            .patch('/api/v1/admin/promos')
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                id: '0'
+            })
+            .expect('Content-Type', /json/)
+            .then((response) => {
+                expect(response.status).toBe(404)
+                expect(response.body.message).toBe('Promo not found')
+            })
+    })
+})
+
+describe('admin/promos', () => {
+    it('should be 200 if promos id found', async () => {
+        return request(app)
+            .delete('/api/v1/admin/promos')
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                id: '1'
+            })
+            .expect('Content-Type', /json/)
+            .then((response) => {
+                expect(response.status).toBe(200)
+                expect(response.body.message).toBe('Success delete promo')
+            })
+    })
+
+    it('Should be 404 if promos id not found', async () => {
+        return request(app)
+            .get('/api/v1/admin/promos')
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                id: '0'
+            })
+            .expect('Content-Type', /json/)
+            .then((response) => {
+                expect(response.status).toBe(404)
+                expect(response.body.message).toBe('Promo not found')
+            })
     })
 })
