@@ -1,17 +1,220 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.0.3",
   "info": {
-    "title": "Stray",
-    "contact": {},
-    "version": "1.0"
+    "title": "Swagger Stray Project Bingleshop",
+    "description": "This swagger for project bingleshop",
+    "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "http://localhost:3000/api/v1",
+      "url": "http://localhost:3000/api/v1"
+    },
+    {
+      "url": "http://103.179.56.242:3000/api/v1",
       "variables": {}
     }
   ],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Authentication Login URL"
+    },
+    {
+      "name": "Member-User",
+      "description": "Group member for user URL"
+    },
+    {
+      "name": "Order"
+    },
+    {
+      "name": "Item"
+    },
+    {
+      "name": "User"
+    },
+    {
+      "name": "Promo"
+    },
+    {
+      "name": "Items"
+    },
+    {
+      "name": "Cart"
+    },
+    {
+      "name": "Payment"
+    }
+  ],
   "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "endpoint login into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "requestBody": {
+          "description": "request body login into the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Login success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responseBody/LoginSuccess"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User or Password not match",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responseBody/GeneralError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "endpoint register into the system",
+        "description": "",
+        "operationId": "registerUser",
+        "requestBody": {
+          "description": "request body register into the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Register"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Register success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responseBody/RegisterSuccess"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "User already exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responseBody/GeneralError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/member/users": {
+      "get": {
+        "tags": [
+          "Member-User"
+        ],
+        "summary": "endpoint get data users by login",
+        "description": "",
+        "operationId": "getUser",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success get data user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responseBody/UpdateUserSuccess"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responseBody/GeneralError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Member-User"
+        ],
+        "summary": "endpoint update data users",
+        "description": "",
+        "operationId": "updateUser",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "request body register into the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserMember"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "success update data user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responseBody/UserSuccess"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responseBody/GeneralError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/admin/orders": {
       "post": {
         "tags": [
@@ -657,87 +860,6 @@
         "deprecated": false
       }
     },
-    "/member/users": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "userById",
-        "description": "userById",
-        "operationId": "userById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {},
-            "content": {}
-          }
-        },
-        "deprecated": false
-      },
-      "patch": {
-        "tags": [
-          "User"
-        ],
-        "summary": "updateUser",
-        "description": "updateUser",
-        "operationId": "updateUser",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/updateUserRequest"
-                  },
-                  {
-                    "example": {
-                      "name": "Akhmad Maknur lagi"
-                    }
-                  }
-                ]
-              },
-              "example": {
-                "name": "Akhmad Maknur lagi"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {},
-            "content": {}
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/admin/promos": {
       "get": {
         "tags": [
@@ -1166,26 +1288,14 @@
         "deprecated": false
       }
     },
-    "/auth/refresh_token": {
+    "/member/payments": {
       "post": {
         "tags": [
-          "Misc"
+          "Payment"
         ],
-        "summary": "RefreshToken",
-        "description": "Refresh Token",
-        "operationId": "RefreshToken",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
+        "summary": "payment",
+        "operationId": "payment",
+        "parameters": [],
         "requestBody": {
           "description": "",
           "content": {
@@ -1193,19 +1303,21 @@
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/RefreshTokenRequest"
+                    "$ref": "#/components/schemas/paymentrequest"
                   },
                   {
                     "example": {
-                      "email": "akhmad.maknur@gmail.com",
-                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraG1hZC5tYWtudXJAZ21haWwxLmNvbSIsInVzZXJfaWQiOjIsImlhdCI6MTY2MDg4Nzk1MiwiZXhwIjoxNjYwODkxNTUyfQ.EvFi8la6yv84YsENWRZQPvJMMA8zfrseGj7B8FLuD0I"
+                      "id_orders": 3,
+                      "payment_type": "Virtual Account",
+                      "amount": 335000
                     }
                   }
                 ]
               },
               "example": {
-                "email": "akhmad.maknur@gmail.com",
-                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraG1hZC5tYWtudXJAZ21haWwxLmNvbSIsInVzZXJfaWQiOjIsImlhdCI6MTY2MDg4Nzk1MiwiZXhwIjoxNjYwODkxNTUyfQ.EvFi8la6yv84YsENWRZQPvJMMA8zfrseGj7B8FLuD0I"
+                "id_orders": 3,
+                "payment_type": "Virtual Account",
+                "amount": 335000
               }
             }
           },
@@ -1214,134 +1326,113 @@
         "responses": {
           "200": {
             "description": "",
-            "headers": {},
-            "content": {}
+            "headers": {}
           }
         },
-        "deprecated": false
-      }
-    },
-    "/auth/login": {
-      "post": {
-        "tags": [
-          "Misc"
-        ],
-        "summary": "Login",
-        "description": "Login",
-        "operationId": "Login",
-        "parameters": [
+        "deprecated": false,
+        "servers": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
+            "url": "http://localhost:3000/api/v1",
+            "variables": {}
           }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/LoginRequest"
-                  },
-                  {
-                    "example": {
-                      "user_name": "admin1234",
-                      "password": "testing"
-                    }
-                  }
-                ]
-              },
-              "example": {
-                "user_name": "admin1234",
-                "password": "testing"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {},
-            "content": {}
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/auth/register": {
-      "post": {
-        "tags": [
-          "Misc"
-        ],
-        "summary": "Register",
-        "description": "Register",
-        "operationId": "Register",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/RegisterRequest"
-                  },
-                  {
-                    "example": {
-                      "role": "ADMIN",
-                      "email": "akhmad.maknur@gmail.com",
-                      "password": "qwerty1234",
-                      "user_name": "admin12345",
-                      "name": "Akhmad Maknur Member",
-                      "no_telephone": "082394717431"
-                    }
-                  }
-                ]
-              },
-              "example": {
-                "role": "ADMIN",
-                "email": "akhmad.maknur@gmail.com",
-                "password": "qwerty1234",
-                "user_name": "admin12345",
-                "name": "Akhmad Maknur Member",
-                "no_telephone": "082394717431"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {},
-            "content": {}
-          }
-        },
-        "deprecated": false
+        ]
       }
     }
   },
   "components": {
     "schemas": {
+      "Login": {
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "example": "admin12345",
+            "required": true
+          },
+          "password": {
+            "type": "string",
+            "example": "qwerty1234",
+            "required": true
+          }
+        },
+        "xml": {
+          "name": "login"
+        }
+      },
+      "Register": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "example": "ADMIN",
+            "required": true
+          },
+          "email": {
+            "type": "string",
+            "example": "akhmad.maknur@gmail.com",
+            "required": true
+          },
+          "password": {
+            "type": "string",
+            "example": "password",
+            "required": true
+          },
+          "user_name": {
+            "type": "string",
+            "example": "username",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "example": "your name",
+            "required": true
+          },
+          "no_telephone": {
+            "type": "string",
+            "example": "your phone",
+            "required": true
+          },
+          "alamat": {
+            "type": "string",
+            "example": "your address"
+          }
+        },
+        "xml": {
+          "name": "register"
+        }
+      },
+      "UserMember": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "akhmad.maknur@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password"
+          },
+          "user_name": {
+            "type": "string",
+            "example": "username"
+          },
+          "name": {
+            "type": "string",
+            "example": "your name"
+          },
+          "no_telephone": {
+            "type": "string",
+            "example": "your phone"
+          },
+          "alamat": {
+            "type": "string",
+            "example": "your address"
+          }
+        },
+        "xml": {
+          "name": "register"
+        }
+      },
       "createOrderRequest": {
         "title": "createOrderRequest",
         "required": [
@@ -1767,90 +1858,239 @@
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraG1hZC5tYWtudXJAZ21haWwxLmNvbSIsInVzZXJfaWQiOjIsImlhdCI6MTY2MDg4Nzk1MiwiZXhwIjoxNjYwODkxNTUyfQ.EvFi8la6yv84YsENWRZQPvJMMA8zfrseGj7B8FLuD0I"
         }
       },
-      "LoginRequest": {
-        "title": "LoginRequest",
+      "paymentrequest": {
+        "title": "paymentrequest",
         "required": [
-          "user_name",
-          "password"
+          "id_orders",
+          "payment_type",
+          "amount"
         ],
         "type": "object",
         "properties": {
-          "user_name": {
+          "id_orders": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "payment_type": {
             "type": "string"
           },
-          "password": {
-            "type": "string"
+          "amount": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "example": {
-          "user_name": "admin1234",
-          "password": "testing"
+          "id_orders": 3,
+          "payment_type": "Virtual Account",
+          "amount": 335000
+        }
+      }
+    },
+    "responseBody": {
+      "LoginSuccess": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Login success"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "example": "generateToken"
+              },
+              "refresh": {
+                "type": "string",
+                "example": "refreshToken"
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "no_telephone": {
+                    "type": "string"
+                  },
+                  "alamat": {
+                    "type": "string",
+                    "format": "nullable"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "loginSuccess"
         }
       },
-      "RegisterRequest": {
-        "title": "RegisterRequest",
-        "required": [
-          "role",
-          "email",
-          "password",
-          "user_name",
-          "name",
-          "no_telephone"
-        ],
+      "RegisterSuccess": {
         "type": "object",
         "properties": {
-          "role": {
-            "type": "string"
+          "message": {
+            "type": "string",
+            "example": "User registration has successful, please check your email for activation account"
           },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "user_name": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "no_telephone": {
-            "type": "string"
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 1
+              },
+              "role_id": {
+                "type": "integer",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "string"
+              },
+              "no_telephone": {
+                "type": "string",
+                "example": "string"
+              },
+              "email": {
+                "type": "string",
+                "example": "string"
+              },
+              "alamat": {
+                "type": "string",
+                "example": "string"
+              },
+              "user_name": {
+                "type": "string",
+                "example": "string"
+              },
+              "password": {
+                "type": "string",
+                "example": "string"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "string"
+              },
+              "deletedAt": {
+                "type": "string",
+                "example": "string"
+              }
+            }
           }
         },
-        "example": {
-          "role": "ADMIN",
-          "email": "akhmad.maknur@gmail.com",
-          "password": "qwerty1234",
-          "user_name": "admin12345",
-          "name": "Akhmad Maknur Member",
-          "no_telephone": "082394717431"
+        "xml": {
+          "name": "registerSuccess"
         }
+      },
+      "UserSuccess": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "name": {
+                "type": "string"
+              },
+              "no_telephone": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "alamat": {
+                "type": "string",
+                "format": "nullable"
+              },
+              "role": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "UpdateUserSuccess": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "name": {
+                "type": "string"
+              },
+              "no_telephone": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "alamat": {
+                "type": "string",
+                "format": "nullable"
+              }
+            }
+          }
+        }
+      },
+      "GeneralError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "xml": {
+          "name": "generalError"
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   },
-  "tags": [
-    {
-      "name": "Order"
-    },
-    {
-      "name": "Item"
-    },
-    {
-      "name": "User"
-    },
-    {
-      "name": "Promo"
-    },
-    {
-      "name": "Items"
-    },
-    {
-      "name": "Cart"
-    },
-    {
-      "name": "Misc",
-      "description": ""
-    }
-  ]
+  "security": {
+    "BearerAuth": []
+  }
 }
