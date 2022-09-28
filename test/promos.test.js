@@ -169,7 +169,7 @@ describe('admin/promos', () => {
             .expect('Content-Type', /json/)
             .then((response) => {
                 expect(response.status).toBe(200)
-                expect(response.body.message).toBe('Success delete promo')
+                expect(response.body.message).toBe('Delete promo success')
             })
     })
 
