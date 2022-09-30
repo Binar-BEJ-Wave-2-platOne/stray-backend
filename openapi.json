@@ -215,109 +215,15 @@
         }
       }
     },
-    "/admin/orders": {
-      "post": {
-        "tags": [
-          "Order"
-        ],
-        "summary": "createOrder",
-        "description": "createOrder",
-        "operationId": "createOrder",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/createOrderRequest"
-                  },
-                  {
-                    "example": {
-                      "promo": "MDK",
-                      "sender_addres": "fdsafasdfadsfasdM",
-                      "receiver_addres": "ACEsdfasdfasdfJ",
-                      "customer_name": "Akhmad",
-                      "items": [
-                        {
-                          "id_item": "1",
-                          "item_quantity": "5"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              },
-              "example": {
-                "promo": "MDK",
-                "sender_addres": "fdsafasdfadsfasdM",
-                "receiver_addres": "ACEsdfasdfasdfJ",
-                "customer_name": "Akhmad",
-                "items": [
-                  {
-                    "id_item": "1",
-                    "item_quantity": "5"
-                  }
-                ]
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {},
-            "content": {}
-          }
-        },
-        "deprecated": false
-      },
-      "get": {
-        "tags": [
-          "Order"
-        ],
-        "summary": "getAllOrder",
-        "description": "getAllOrder",
-        "operationId": "getAllOrder",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {},
-            "content": {}
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/member/orders": {
       "post": {
         "tags": [
           "Order"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
         ],
         "summary": "createrOrder",
         "description": "createrOrder",
@@ -418,9 +324,14 @@
         "tags": [
           "Order"
         ],
-        "summary": "updateOrder",
-        "description": "updateOrder",
-        "operationId": "updateOrder",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "CancelOrder",
+        "description": "CancelOrder",
+        "operationId": "CancelOrder",
         "parameters": [
           {
             "name": "Authorization",
