@@ -228,18 +228,6 @@
         "summary": "createrOrder",
         "description": "createrOrder",
         "operationId": "createrOrder",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "requestBody": {
           "description": "",
           "content": {
@@ -332,18 +320,6 @@
         "summary": "CancelOrder",
         "description": "CancelOrder",
         "operationId": "CancelOrder",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "requestBody": {
           "description": "",
           "content": {
@@ -384,21 +360,14 @@
         "tags": [
           "Item"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "createItem",
         "description": "createItem",
         "operationId": "createItem",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "requestBody": {
           "description": "",
           "content": {
@@ -471,21 +440,14 @@
         "tags": [
           "Item"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "updateItem",
         "description": "updateItem",
         "operationId": "updateItem",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "requestBody": {
           "description": "",
           "content": {
@@ -584,20 +546,15 @@
         "tags": [
           "Item"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "uploadImage",
         "description": "uploadImage",
         "operationId": "uploadImage",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          },
           {
             "name": "Content-Type",
             "in": "header",
@@ -646,21 +603,14 @@
         "tags": [
           "User"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "usersAll",
         "description": "usersAll",
         "operationId": "usersAll",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "",
@@ -671,26 +621,19 @@
         "deprecated": false
       }
     },
-    "/users/1": {
+    "/admin/users/1": {
       "get": {
         "tags": [
           "User"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "usersById",
         "description": "usersById",
         "operationId": "usersById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "",
@@ -699,7 +642,6 @@
           }
         },
         "deprecated": false,
-        "security": []
       },
       "patch": {
         "tags": [
@@ -741,26 +683,19 @@
         "deprecated": false
       }
     },
-    "/users/12": {
+    "/admin/users/12": {
       "delete": {
         "tags": [
           "User"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "userDelete",
         "description": "userDelete",
         "operationId": "userDelete",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "",
@@ -776,21 +711,14 @@
         "tags": [
           "Promo"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "getAllPromo",
         "description": "getAllPromo",
         "operationId": "getAllPromo",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "",
@@ -863,21 +791,14 @@
         "tags": [
           "Promo"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "getPromoById",
         "description": "getPromoById",
         "operationId": "getPromoById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "",
@@ -893,21 +814,14 @@
         "tags": [
           "Promo"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "updatePromo",
         "description": "updatePromo",
         "operationId": "updatePromo",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "requestBody": {
           "description": "",
           "content": {
@@ -980,21 +894,14 @@
         "tags": [
           "Items"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "getItems",
         "description": "getItems",
         "operationId": "getItems",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "",
@@ -1010,21 +917,14 @@
         "tags": [
           "Items"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "getItemsById",
         "description": "getItemsById",
         "operationId": "getItemsById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "",
@@ -1040,21 +940,14 @@
         "tags": [
           "Cart"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "createCart",
         "description": "createCart",
         "operationId": "createCart",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "requestBody": {
           "description": "",
           "content": {
@@ -1123,21 +1016,14 @@
         "tags": [
           "Cart"
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "updateCart",
         "description": "updateCart",
         "operationId": "updateCart",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "",
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "default": "Bearer {token}"
-            }
-          }
-        ],
         "requestBody": {
           "description": "",
           "content": {
@@ -1203,6 +1089,11 @@
       "post": {
         "tags": [
           "Payment"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
         ],
         "summary": "payment",
         "operationId": "payment",
